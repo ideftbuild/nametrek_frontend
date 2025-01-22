@@ -13,3 +13,26 @@
 body {
   font-family: 'Roboto', sans-serif;
 }
+
+/* globals.css */
+html, body {
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+body::-webkit-scrollbar {
+  width: 8px; /* Adjust scrollbar width */
+}
+
+body::-webkit-scrollbar-track {
+  background: rgba(31, 41, 55, 0.4); /* Gray 800/40 */
+}
+
+body::-webkit-scrollbar-thumb {
+  background: rgba(236, 72, 153, 0.4); /* Pink 500/40 */
+  border-radius: 9999px; /* Makes it rounded */
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: rgba(236, 72, 153, 0.6); /* Pink 500/60 */
+}

@@ -18,7 +18,7 @@ const RulesModal: React.FC<RulesModalProps> = ({ open, setOpen }) => {
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <Dialog.Panel className="w-full max-w-2xl transform rounded-xl bg-gray-900/95 shadow-xl transition-all">
           <div
-            className="relative p-6 max-h-[90vh] overflow-y-auto scrollbar-thin scrollbar-track-gray-800/40 scrollbar-thumb-pink-500/40 hover:scrollbar-thumb-pink-500/60"
+            className="relative p-6"
           >
             {/* Close button */}
             <button

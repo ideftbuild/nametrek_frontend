@@ -54,7 +54,7 @@ const Contact = () => {
   };
 
   return (
-    <div className={"max-h-[100vh] overflow-y-auto scrollbar-thin scrollbar-track-gray-800/40 scrollbar-thumb-pink-500/40 hover:scrollbar-thumb-pink-500/60"}>
+    <div className={"min-h-screen"}>
       <Header />
       <div className="bg-gradient-to-br from-blue-900 via-gray-900 to-teal-900 ">
         <main className="container mx-auto px-4 md:px-8 lg:px-16 py-12 text-white">

@@ -92,7 +92,7 @@ const Room = () => {
   }
 
   return (
-    <div className={"flex flex-col max-h-[100vh] overflow-y-auto scrollbar-thin scrollbar-track-gray-800/40 scrollbar-thumb-pink-500/40 hover:scrollbar-thumb-pink-500/60"}>
+    <div className={"min-h-screen flex flex-col"}>
       <header>
         <Header />
 

@@ -11,7 +11,7 @@ const Home = () => {
   const [isJoinClicked, setIsJoinClicked] = useState(false);
 
   return (
-    <div className="flex flex-col gap-y-16 max-h-[100vh] overflow-y-auto scrollbar-thin scrollbar-track-gray-800/40 scrollbar-thumb-pink-500/40 hover:scrollbar-thumb-pink-500/60 ">
+    <div className="min-h-screen flex flex-col gap-y-16">
       <Header/>
       <main className="container flex-grow mx-auto px-4 py-12">
         {/*<h2 className="text-3xl font-thin text-center text-white">Welcome aboard, Name Trekkers!</h2>*/}
