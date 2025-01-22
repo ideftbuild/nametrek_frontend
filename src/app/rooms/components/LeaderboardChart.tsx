@@ -1,4 +1,6 @@
 import React from 'react'; // Removed unused useEffect
+import type { Player } from '@/store/types';
+import {ChartData, ChartOptions, ScriptableContext} from 'chart.js';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,15 +15,20 @@ import { Trophy, Crown, Medal } from 'lucide-react';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const LeaderboardChart = ({ allPlayers, leaderboardRef }) => {
-  // Remove sorting since allPlayers is already sorted
-  const hasScores = allPlayers.length > 0 && allPlayers[0].score > 0;
-  
-  const getGradient = (context, isLost) => {
+type LeaderboardChartProps = {
+  allPlayers: Player[];
+  leaderboardRef: React.Ref<HTMLHeadingElement> | undefined;
+  hasScores: boolean;
+}
+
+const LeaderboardChart: React.FC<LeaderboardChartProps> = ({ allPlayers, leaderboardRef, hasScores }) => {
+  const getGradient = (context: ScriptableContext<'bar'>, isLost: boolean | null): CanvasGradient | string => {
     const chart = context.chart;
     const { ctx, chartArea } = chart;
-    if (!chartArea) return null;
-    
+    if (!chartArea) {
+      return 'rgba(0, 0, 0, 0.1)';
+    }
+
     const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
     if (isLost) {
       gradient.addColorStop(0, 'rgba(255, 99, 132, 0.5)');
@@ -33,12 +40,12 @@ const LeaderboardChart = ({ allPlayers, leaderboardRef }) => {
     return gradient;
   };
 
-  const data = {
+  const data: ChartData<'bar', number[], string> = {
     labels: allPlayers.map(player => player.name),
     datasets: [{
       label: "Score",
       data: allPlayers.map(player => player.score),
-      backgroundColor: function(context) {
+      backgroundColor: function(context: ScriptableContext<'bar'>): CanvasGradient | string {
         const index = context.dataIndex;
         return getGradient(context, allPlayers[index]?.lost);
       },
@@ -49,7 +56,7 @@ const LeaderboardChart = ({ allPlayers, leaderboardRef }) => {
   };
 
   // Rest of the options remain the same
-  const options = {
+  const options: ChartOptions<'bar'> = {
     responsive: true,
     maintainAspectRatio: false,
     animation: {
@@ -154,8 +161,8 @@ const LeaderboardChart = ({ allPlayers, leaderboardRef }) => {
       )}
 
       {/* Chart Section */}
-      <div 
-        className="w-full h-[400px] transition-all duration-300" 
+      <div
+        className="w-full h-[400px] transition-all duration-300"
       >
         <Bar data={data} options={options} />
       </div>

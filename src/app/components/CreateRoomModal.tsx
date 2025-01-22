@@ -1,65 +1,105 @@
 import { Dialog } from '@headlessui/react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import RoomService from '../../services/RoomService';
 import type { RoomModalProps } from './types';
 import { useRouter } from 'next/navigation';
-import { useRoom } from '../../contexts/RoomContext';
 import useGameStore from '../../store/gameStore';
+import { X } from 'lucide-react';
 
 const roomService = new RoomService();
 
-const CreateRoomModal = ({ isOpen, setIsOpen }: RoomModalProps ) => {
+const CreateRoomModal = ({ open, setOpen }: RoomModalProps ) => {
   const [playerName, setPlayerName] = useState("");
   const [rounds, setRounds] = useState(4);
+  const [creating, setCreating] = useState(false);
   const router = useRouter();
 
-  function generateInviteLink(roomId: string) {
+  function generateInviteLink(roomId: string): string | undefined {
     if (typeof window !== "undefined") {
       const hostname = window.location.origin;
-      return `${hostname}/invite/${roomId}`
+      return `${hostname}/invite/${roomId}`;
     }
+    return undefined;
   }
+
+  // Fix the type definition to accept string | undefined | null
+  const isDefined = (value: string | undefined | null): value is string => {
+    return value !== undefined && value !== null;
+  };
+
+  const setLocalStorageItem = (key: string, value: string | undefined | null) => {
+    if (isDefined(value)) {
+      localStorage.setItem(key, value);
+    } else {
+      localStorage.removeItem(key);
+    }
+  };
+
   async function handleCreate() {
     try {
+      setCreating(true);
       const roomPlayer = await roomService.createRoom({ playerName, rounds });
       const roomId = roomPlayer.roomId;
+      const roomCode = roomPlayer.roomCode;
 
-      // Save room code and link to localStorage
-      localStorage.setItem('roomCode', roomPlayer.roomCode);
-      localStorage.setItem('roomLink', generateInviteLink(roomId));
+      setLocalStorageItem('roomCode', roomCode);
+      setLocalStorageItem('roomLink', generateInviteLink(roomId));
+
       useGameStore.setState({ currentPlayer: roomPlayer.player });
-
       router.push(`/rooms/${roomId}`);
     } catch (err) {
-      alert("Failed to create room");
+      alert("Failed to create room: " + err);
+    } finally {
+      setCreating(false);
     }
   }
 
   return (
-    <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60">
-      <Dialog.Panel className="rounded-lg w-full max-w-md sm:max-w-lg lg:max-w-xl p-6 bg-black bg-opacity-50">
-        <h3 className="text-xl font-thin text-white mb-6">Create a new room to start playing</h3>
-        <div className="flex flex-col gap-y-8">
-          <input 
-            type="text"
-            className="bg-white text-black font-light px-2"
-            placeholder="Player Name"
-            value={playerName}
-            onChange={(e) => setPlayerName(e.target.value)}
-          />
-          <input
-            type="text"
-            className="bg-white text-black font-light px-2"
-            placeholder="rounds"
-            onChange={(e) => setRounds(+e.target.value)}
-          />
-        </div>
-        <button onClick={handleCreate} className="mt-6 px-6 py-2 bg-blue-600 text-white w-full rounded-md hover:bg-blue-700 transition-colors">
-          Create
-        </button>
-      </Dialog.Panel>
+    <Dialog open={open} onClose={() => setOpen(false)} className="relative z-50">
+
+      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" aria-hidden="true"/>
+
+      <div className="fixed inset-0 flex items-center justify-center p-4">
+        <Dialog.Panel className="w-full max-w-2xl transform rounded-xl bg-gray-900/95 shadow-xl p-6 transition-all">
+          {/* Close button */}
+          <button
+            onClick={() => setOpen(false)}
+            className="absolute right-4 top-4 p-2 text-gray-400 hover:text-pink-400 transition-colors"
+            aria-label="Close rules"
+          >
+            <X size={20} />
+          </button>
+          <h3 className="text-xl font-semibold text-pink-400 mb-4">Create a new room to start playing</h3>
+          <div className="flex flex-col gap-y-8">
+            <input
+              type="text"
+              placeholder="Player Name"
+              value={playerName}
+              onChange={(e) => setPlayerName(e.target.value)}
+              className="w-full rounded-lg p-3 transition-all duration-300 focus:ring-2 focus:ring-pink-500 outline-none"
+            />
+            <input
+              type="text"
+              placeholder="rounds"
+              onChange={(e) => setRounds(+e.target.value)}
+              className="w-full rounded-lg p-3 transition-all duration-300 focus:ring-2 focus:ring-pink-500 outline-none"
+            />
+          </div>
+          {creating ?
+            <button onClick={handleCreate}
+                    className="mt-6 px-6 py-2 bg-blue-600 text-white w-full rounded-md hover:bg-blue-700 transition-colors">
+              Creating
+            </button>
+            :
+            <button onClick={handleCreate}
+                    className="mt-6 px-6 py-2 bg-blue-600 text-white w-full rounded-md hover:bg-blue-700 transition-colors">
+              Create
+            </button>
+          }
+        </Dialog.Panel>
+      </div>
     </Dialog>
-  );
+);
 }
 
 export default CreateRoomModal;

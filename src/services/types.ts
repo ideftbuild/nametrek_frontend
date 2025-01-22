@@ -1,12 +1,13 @@
 export type RoomEventResponse = {
-  room: Room
-  players: <PlayerScore>[];
+  playerId: number | undefined;
+  room: Room | undefined;
+  players: Player[];
   eventType: string;
 }
 
 export type CreateRoomDto = {
   playerName: string;
-  maxRounds: number;
+  rounds: number;
 }
 
 export type JoinRoomDto = {
@@ -29,6 +30,7 @@ export type Room = {
   round: number;
   rounds: number;
   maxPlayers: number;
+  owner: number;
 }
 
 export type RoomPlayerInfo = {
@@ -36,3 +38,11 @@ export type RoomPlayerInfo = {
   roomCode: string | null;
   player: Player;
 }
+
+export type Contact = {
+  to: string | undefined;
+  email: string;
+  subject: string;
+  text: string;
+}
+

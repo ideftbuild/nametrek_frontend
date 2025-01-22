@@ -22,6 +22,4 @@ export type Answer = {
   answer: string;
   category: string;
   playerId: number;
-  message: boolean;
-  players: Player[] | null;
 }

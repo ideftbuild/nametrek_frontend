@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { Client } from '@stomp/stompjs';
 import { Player, Room, Question, Answer } from './types';
-import { useRef } from 'react';
+import React from "react";
 
 /**
  * Represents the state of a game at a given time.
@@ -10,7 +10,7 @@ interface GameState {
   // The current player using this client. If no player is logged in, this will be null.
   currentPlayer: Player | null;
   // The list of all players in the game. Can be null if the game state is not initialized.
-  allPlayers: Player[] | null;
+  allPlayers: Player[];
   // The room the game is taking place in. Null if the player is not in a room.
   currentRoom: Room | null;
   // Information about the client interacting with the game.
@@ -18,39 +18,43 @@ interface GameState {
 
   error?: string | null;
 
-  getOwner?: () => number | null;
+  setError: (error: string | null) => void;
+
+  getOwner: () => Player | null | undefined;
 
   message: string | number | null;
 
-  setMessage: (message: string) => null;
+  setMessage: (message: string) => void;
 
   question: Question | null;
 
   isPlayerTurn: true | false;
 
-  setIsPlayerTurn: (flag: boolean) => null;
+  setIsPlayerTurn: (flag: boolean) => void;
 
-  countdown: string | null;
+  countdown: number | null;
 
-  setCountdown: (string) => null;
+  setCountdown: (value: number | null) => void;
 
-  setQuestion: (question: Question) =>  null;
+  setQuestion: (question: Question) =>  void;
 
-  reset: () => null;
+  reset: (allPlayers: Player[]) => void;
 
   answer: Answer | null;
 
   inProgress: boolean;
 
-  updateRound: (round: number) => null;
+  updateRound: (round: number) => void;
 
-  leaderboardRef;
+  leaderboardRef: React.RefObject<HTMLElement> | React.RefObject<null> | null;
 
-  roomCode: string | null;
+  setLeaderboardRef: (ref: React.RefObject<HTMLElement> | React.RefObject<null>) => void;
+
+  hasScores: boolean;
 
   roomLink: string | null;
 
-  setRoomLink: (hostname: string, roomId: string) => null;
+  roomCode: string | null;
 }
 
 const useGameStore = create<GameState>((set, get) => ({
@@ -63,36 +67,37 @@ const useGameStore = create<GameState>((set, get) => ({
   message: null,
   question: null,
   isPlayerTurn: false,
-  countdown: "",
-  setCountdown: (value) => set({ countdown: value }),
+  countdown: null,
   setMessage: (message) => set({ message }),
   inProgress: false,
   answer: null,
   leaderboardRef: null,
   setLeaderboardRef: (ref) => set({ leaderboardRef: ref }),
-
-  setRoomLink: (hostname, roomId) => {
-    const inviteLink = `${hostname}/invite/${roomId}`;
-    set({ roomLink: inviteLink });
-  },
+  hasScores: false,
+  roomCode: null,
+  roomLink: null,
 
   reset: (allPlayers) => {
     // navigate to the leaderboard page and render the data (gameEvent.value)
     const { currentRoom, leaderboardRef } = get();
 
-    currentRoom.round = 0;
-    set({ allPlayers, inProgress: false, message: "Game Over", countdown: null, question: null });
+    if (currentRoom) {
+      currentRoom.round = 0;
+      set({ allPlayers, inProgress: false, message: "Game Over", countdown: null, question: null });
 
-    if (leaderboardRef.current) {
-      leaderboardRef.current.scrollIntoView({ behaviour: 'smooth' });
+      if (leaderboardRef?.current) {
+        leaderboardRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   },
 
   updateRound: (round: number) => {
     const { currentRoom } = get();
-    currentRoom.round = round;
+    if (currentRoom) {
+      currentRoom.round = round;
 
-    set({ message: `round ${number}` });
+      set({ message: `round ${round}`});
+    }
   },
 
   getOwner: ()  => {
@@ -104,11 +109,11 @@ const useGameStore = create<GameState>((set, get) => ({
   },
 
   setCountdown: (value) => {
-    const { question, currentPlayer } = get();
-
     // Update countdown and determine player turn
-    if (value <= 0) {
-      set({ isPlayerTurn: false, question: null, countdown: "" });
+    if (value === null) {
+      set({countdown: null});
+    } else if (value <= 0) {
+      set({ isPlayerTurn: false, question: null, countdown: null });
     } else {
       set({ countdown: value });
     }

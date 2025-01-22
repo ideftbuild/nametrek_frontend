@@ -9,6 +9,7 @@ import RoomService from '../../../services/RoomService';
 const Invite = () => {
   const [playerName, setPlayerName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [joining, setJoining] = useState(false);
   const router = useRouter();
   const params = useParams();
   const roomService = new RoomService();
@@ -20,21 +21,20 @@ const Invite = () => {
   }, [params]);
 
   async function handleJoin() {
-    if (!params?.roomId || !playerName.trim()) {
-      alert("Please enter a valid player name");
+    if (!params?.roomId && !playerName.trim()) {
       return;
     }
 
     try {
-      setIsLoading(true);
-      const roomPlayer = await roomService.joinRoomById(params.roomId, { playerName });
+      setJoining(true);
+      const roomPlayer = await roomService.joinRoomById(params.roomId as string, { playerName });
       useGameStore.setState({ currentPlayer: roomPlayer.player });
       router.push(`/rooms/${roomPlayer.roomId}`);
     } catch (err) {
-      alert("Failed to join room: " + err.message);
+      alert("Failed to join room: " + err);
       router.push(`/`);
     } finally {
-      setIsLoading(false);
+      setJoining(false);
     }
   }
 
@@ -55,21 +55,25 @@ const Invite = () => {
       <Header/>
       <div className="flex-grow flex items-center justify-center py-8">
         <main className="container flex-grow rounded-md max-w-md sm:max-w-lg lg:max-w-xl p-6 bg-black bg-opacity-50 mx-auto">
-          <h3 className="text-xl font-thin text-white mb-6">Join a new room to start playing</h3>
+          <h3 className="text-xl font-semibold text-pink-400 mb-4">Join a new room to start playing</h3>
           <input
             type="text"
-            className="w-full font-light px-2 py-2 rounded"
             value={playerName}
             placeholder="Player Name"
             onChange={(e) => setPlayerName(e.target.value)}
+            className="w-full rounded-lg p-3 transition-all duration-300 focus:ring-2 focus:ring-pink-500 outline-none"
            />
-          <button 
-            onClick={handleJoin} 
-            disabled={isLoading}
-            className="mt-6 px-6 py-2 bg-green-600 text-white w-full rounded-md hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isLoading ? 'Joining...' : 'Join'}
-          </button>
+          {joining ?
+            <button onClick={handleJoin}
+                    className="mt-6 px-6 py-2 bg-green-600 text-white w-full rounded-md hover:bg-green-700 transition-colors">
+              Joining
+            </button>
+            :
+            <button onClick={handleJoin}
+                    className="mt-6 px-6 py-2 bg-green-600 text-white w-full rounded-md hover:bg-green-700 transition-colors">
+              Join
+            </button>
+          }
         </main>
       </div>
       <Footer/>

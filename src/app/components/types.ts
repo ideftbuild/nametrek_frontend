@@ -1,7 +1,7 @@
 
 export type RoomModalProps = {
-  isOpen: boolean;
-  setIsOpen: (value: boolean) => void;
+  open: boolean;
+  setOpen: (value: boolean) => void;
 }
 
 export type CreateRoomResponse = {

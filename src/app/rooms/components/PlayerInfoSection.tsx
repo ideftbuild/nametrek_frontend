@@ -1,8 +1,15 @@
 import React from 'react';
 import { User, Info, Crown, Clock } from 'lucide-react';
-import useGameStore from '../../../store/gameStore.ts';
+import type {Player, Room} from "@/store/types";
 
-const PlayerInfoSection = ({ allPlayers, currentPlayer, currentRoom, infoIsClicked, setInfoIsClicked }) => {
+type PlayerInfoSectionProps = {
+  allPlayers: Player[];
+  currentPlayer: Player;
+  currentRoom: Room;
+  infoIsClicked: boolean;
+  setInfoIsClicked: (value: boolean) => void;
+}
+const PlayerInfoSection: React.FC<PlayerInfoSectionProps> = ({ allPlayers, currentPlayer, currentRoom, infoIsClicked, setInfoIsClicked }) => {
   return (
     <div className="relative z-50">
       <div className="flex m-auto w-10/12 items-center justify-between p-3">
@@ -16,9 +23,9 @@ const PlayerInfoSection = ({ allPlayers, currentPlayer, currentRoom, infoIsClick
               </span>
             </div>
           </div>
-          
+
           {/* Info Button */}
-          <button 
+          <button
             onClick={() => setInfoIsClicked(!infoIsClicked)}
             className="group relative bg-gradient-to-r from-pink-400 to-yellow-300 p-0.5 rounded-full transition-all duration-300 hover:scale-110 hover:rotate-12"
           >
@@ -32,7 +39,7 @@ const PlayerInfoSection = ({ allPlayers, currentPlayer, currentRoom, infoIsClick
         {infoIsClicked && (
           <div className="animate-slide-down absolute w-11/12 top-full left-1/2 transform -translate-x-1/2 mt-2">
             <div className="backdrop-blur-md bg-gradient-to-br from-pink-100/30 to-yellow-100/30 rounded-xl p-4 shadow-lg border border-pink-200/30">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-3 gap-4">
                 <div className="bg-gradient-to-br from-pink-50/90 to-yellow-50/90 rounded-lg p-3 transform transition-transform hover:scale-105">
                   <div className="text-sm text-pink-400 flex items-center space-x-2">
                     <Clock className="w-4 h-4" />
@@ -51,7 +58,15 @@ const PlayerInfoSection = ({ allPlayers, currentPlayer, currentRoom, infoIsClick
                     {currentRoom?.rounds || 10}
                   </div>
                 </div>
-                <div className="col-span-2 bg-gradient-to-br from-pink-50/90 to-yellow-50/90 rounded-lg p-3 transform transition-transform hover:scale-105">
+                <div className="bg-gradient-to-br from-pink-50/90 to-yellow-50/90 rounded-lg p-3 transform transition-transform hover:scale-105 ">
+                  <div className="text-sm text-pink-400">Categories</div>
+                  <ul className="flex flex-wrap gap-2 items-center text-sm text-pink-400">
+                    <li>Animals</li>
+                    <li>Countries</li>
+                    <li>Cars</li>
+                  </ul>
+                </div>
+                <div className="col-span-3 bg-gradient-to-br from-pink-50/90 to-yellow-50/90 rounded-lg p-3 transform transition-transform hover:scale-105">
                   <div className="flex justify-between items-center">
                     <div>
                       <div className="text-sm text-pink-400">Players</div>
@@ -81,6 +96,7 @@ const PlayerInfoSection = ({ allPlayers, currentPlayer, currentRoom, infoIsClick
             </div>
           </div>
         )}
+
       </div>
     </div>
   );

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { FaClipboard, FaCheck } from 'react-icons/fa'; // Install with `npm install react-icons`
 
-const CopyLinkButton = ({ link }) => {
+const CopyLinkButton: React.FC<{ link: string }> = ({ link }) => {
   const [copied, setCopied] = useState(false);
+
+  if (!link) return;
 
   const copyToClipboard = async () => {
     try {
