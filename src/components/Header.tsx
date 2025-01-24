@@ -63,7 +63,10 @@ export const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <nav className="md:hidden mt-4 pb-4">
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col items-start space-y-4">
+              <button className="text-white hover:text-yellow-300 transition-colors" onClick={() => setOpen(true)}>Rules</button>
+
+              <RulesModal open={open} setOpen={setOpen} />
               <Link href="/" className="text-white hover:text-yellow-300 transition-colors">
                 Play Now
               </Link>

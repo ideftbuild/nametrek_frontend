@@ -42,7 +42,7 @@ const RulesModal: React.FC<RulesModalProps> = ({ open, setOpen }) => {
               </h2>
 
               <p className="text-sm text-gray-400">
-                Last updated: January 22, 2025
+                Last updated: January 23, 2025
               </p>
             </div>
 
@@ -68,12 +68,6 @@ const RulesModal: React.FC<RulesModalProps> = ({ open, setOpen }) => {
                   <span className="text-pink-400 shrink-0">•</span>
                   <span>Categories are randomly selected for each round</span>
                 </li>
-
-                <li className="flex gap-3">
-                  <span className="text-pink-400 shrink-0">•</span>
-                  <span>The last player that joins is always the first player to begin</span>
-                </li>
-
 
                 <li className="flex gap-3">
                   <span className="text-pink-400 shrink-0">•</span>
