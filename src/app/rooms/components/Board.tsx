@@ -159,7 +159,7 @@ const Board = () => {
               {message}
             </h3>
           ) : (
-            <h3>Waiting for host to start game...</h3>
+            <h3 className={"text-white"}>Waiting for host to start game...</h3>
           )}
         </div>
       </div>
