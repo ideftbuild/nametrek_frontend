@@ -15,7 +15,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={"antialiased min-h-screen bg-gradient-to-br from-blue-900 via-gray-900 to-emerald-900"}>
+
+      <body style={{ backgroundImage: "url('/bg_image.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} className={"antialiased min-h-screen"}>
         {children}
       </body>
     </html>

@@ -92,7 +92,22 @@ const Room = () => {
   }
 
   return (
-    <div className={"min-h-screen flex flex-col"}>
+    <div className={"min-h-screen flex flex-col relative"}>
+
+      {/* Background Video */}
+      <video
+        className="fixed top-0 left-0 w-full h-full object-cover z-[-1]"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/car_travel_animation.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      {/* Optional Overlay for Better Visibility */}
+      <div className="fixed top-0 left-0 w-full h-full bg-black/40 z-[-1]"></div>
       <header>
         <Header />
 

@@ -56,7 +56,6 @@ const Contact = () => {
   return (
     <div className={"min-h-screen"}>
       <Header />
-      <div className="bg-gradient-to-br from-blue-900 via-gray-900 to-teal-900 ">
         <main className="container mx-auto px-4 md:px-8 lg:px-16 py-12 text-white">
           <div className="flex flex-col items-center text-center mb-16">
             <section className="bg-gradient-to-r from-pink-400 to-yellow-300 p-1 rounded-xl mb-8 inline-block">
@@ -145,8 +144,7 @@ const Contact = () => {
             </section>
           </div>
         </main>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };
