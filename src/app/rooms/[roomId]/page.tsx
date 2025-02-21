@@ -13,6 +13,12 @@ import LeaderboardChart from '../components/LeaderboardChart';
 import CopyCodeButton from '../components/CopyCodeButton';
 import CopyLinkButton from '../components/CopyLinkButton';
 import StartButton from '../components/StartButton';
+import { Audiowide, Orbitron } from 'next/font/google';
+
+const orbitron = Orbitron({
+  weight: '400', // Default weight
+  subsets: ['latin'], // Only load required subsets
+});
 
 const Room = () => {
   const { roomId } = useParams();
@@ -82,7 +88,6 @@ const Room = () => {
   if (isLoading) {
     return (
       <div className="flex flex-col min-h-screen">
-        <Header />
         <div className="flex-grow flex items-center justify-center">
           <div className="text-white">Loading...</div>
         </div>
@@ -92,25 +97,11 @@ const Room = () => {
   }
 
   return (
-    <div className={"min-h-screen flex flex-col relative"}>
-
-      {/* Background Video */}
-      <video
-        className="fixed top-0 left-0 w-full h-full object-cover z-[-1]"
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source src="/car_travel_animation.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+    <div className={"min-h-screen flex flex-col relative orbitron.className"}>
 
       {/* Optional Overlay for Better Visibility */}
       <div className="fixed top-0 left-0 w-full h-full bg-black/40 z-[-1]"></div>
       <header>
-        <Header />
-
         <div className="absolute w-full">
           {currentPlayer && currentRoom && (
             <PlayerInfoSection
@@ -156,8 +147,6 @@ const Room = () => {
           <LeaderboardChart allPlayers={allPlayers} leaderboardRef={leaderboardRef} hasScores={hasScores} />
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

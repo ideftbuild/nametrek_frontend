@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import React from "react";
+import AnimatedBackground from '../app/background/AnimatedBackground.tsx'
 
 export const metadata: Metadata = {
   title: "Nametrek",
@@ -15,8 +16,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-
-      <body style={{ backgroundImage: "url('/bg_image.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} className={"antialiased min-h-screen"}>
+      <body className={"relative antialiased min-h-screen"}>
+      <AnimatedBackground />
         {children}
       </body>
     </html>

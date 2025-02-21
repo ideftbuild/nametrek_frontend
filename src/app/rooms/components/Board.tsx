@@ -64,10 +64,9 @@ const Board = () => {
 
   return (
     <div
-      className="relative w-full flex justify-center items-center overflow-visible"
+      className="relative w-full flex justify-center items-center overflow-visible mt-20 bg-yellow"
       style={{
         height: `calc(100vh - ${headerHeight + footerHeight}px)`,
-        margin: '0 auto',
         padding: '40px'
       }}
     >
@@ -95,7 +94,7 @@ const Board = () => {
             r={radius * 1.1}
             cx="0"
             cy="0"
-            fill="black"
+            fill="rgba(0, 0, 0, 0.5)" 
           />
 
           {/* Large circle background */}

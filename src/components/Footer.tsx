@@ -6,7 +6,7 @@ import { SiGithub } from 'react-icons/si';
 
 export const Footer = () => {
   return (
-    <footer className="bg-gray-900 bg-opacity-90 backdrop-blur-sm text-white border-t border-gray-800">
+    <footer className="bg-gray-900 bg-opacity-60 backdrop-blur-sm text-white border-t border-gray-800">
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand Section */}

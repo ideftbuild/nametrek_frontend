@@ -31,7 +31,7 @@ export const Header = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="bg-gray-900 bg-opacity-90 backdrop-blur-sm sticky w-full top-0 z-50 order-gray-800">
+    <header className="bg-gray-900 bg-opacity-40 backdrop-blur-sm sticky w-full top-0 z-50 order-gray-800">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
