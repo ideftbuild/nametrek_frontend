@@ -31,7 +31,7 @@ const About = () => {
   return (
     <div className={"min-h-screen"}>
       <Header />
-      <main className="container mx-auto px-4 md:px-8 lg:px-16 py-12 text-white">
+      <main className="container mx-auto px-4 md:px-8 lg:px-16 py-12 text-gray-200">
         {/* Hero Section */}
         <div className="text-center mb-16">
           <div className="bg-gradient-to-r from-pink-400 to-yellow-300 p-1 rounded-xl mb-8 inline-block">
@@ -39,7 +39,7 @@ const About = () => {
               About NameTrek
             </h1>
           </div>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-black max-w-3xl mx-auto">
             Where nostalgia meets modern gaming - challenge your mind, test your speed, and connect with others.
           </p>
           <div className="mt-8">
@@ -72,10 +72,10 @@ const About = () => {
         <div className="space-y-16 max-w-4xl mx-auto">
           <section>
             <h2 className="text-3xl font-bold mb-6 flex items-center">
-              <span className="bg-gradient-to-r from-pink-400 to-yellow-300 bg-clip-text text-transparent">Introduction</span>
+              <span className="text-gray-800 bg-clip-text">Introduction</span>
             </h2>
             <div className="bg-gray-800 bg-opacity-50 rounded-xl p-6 backdrop-blur-sm">
-              <p className="text-gray-300 leading-relaxed">
+              <p className="leading-relaxed">
                 This interactive game brings a nostalgic childhood favorite to the web. Players race against the clock, naming items in chosen categories—countries, animals, or even everyday objects—before time runs out. Hesitate or give an invalid answer, and you&#39;re out! The game continues until one player remains. It&#39;s not just fun and competitive; it also helps improve typing speed by challenging players to think and type quickly under pressure.
               </p>
             </div>
@@ -83,10 +83,10 @@ const About = () => {
 
           <section>
             <h2 className="text-3xl font-bold mb-6 flex items-center">
-              <span className="bg-gradient-to-r from-pink-400 to-yellow-300 bg-clip-text text-transparent">Our Story</span>
+              <span className="text-gray-800 bg-clip-text">Our Story</span>
             </h2>
             <div className="bg-gray-800 bg-opacity-50 rounded-xl p-6 backdrop-blur-sm">
-              <p className="text-gray-300 leading-relaxed">
+              <p className="leading-relaxed">
                 Growing up, I played a fun and engaging game that brought people together, sparked creativity, and always led to unforgettable moments. Now, I&#39;m bringing that experience to the web, not just for nostalgia or fun (though there&#39;s plenty of that!) but to create a dynamic, interactive platform that connects people in new ways.
               </p>
             </div>
@@ -94,10 +94,10 @@ const About = () => {
 
           <section>
             <h2 className="text-3xl font-bold mb-6 flex items-center">
-              <span className="bg-gradient-to-r from-pink-400 to-yellow-300 bg-clip-text text-transparent">Mission & Vision</span>
+              <span className="text-gray-800 bg-clip-text">Mission & Vision</span>
             </h2>
             <div className="bg-gray-800 bg-opacity-50 rounded-xl p-6 backdrop-blur-sm">
-              <p className="text-gray-300 leading-relaxed">
+              <p className="leading-relaxed">
                 Our mission is to create a platform that fosters connection, creativity, and competition. We want to bring people together in a fun and engaging way, sparking joy and laughter through shared experiences. Our vision is to build a community of players who love to challenge themselves, learn new things, and connect with others in a positive and supportive environment.
               </p>
             </div>
@@ -106,7 +106,7 @@ const About = () => {
           {/* Team Section */}
           <section className="mb-16">
             <h2 className="text-3xl font-bold mb-6 flex items-center">
-              <span className="bg-gradient-to-r from-pink-400 to-yellow-300 bg-clip-text text-transparent">Meet the Creator</span>
+              <span className="text-gray-800 bg-clip-text">Meet the Creator</span>
             </h2>
             <div className="bg-gray-800 bg-opacity-50 rounded-xl p-6 backdrop-blur-sm flex items-center gap-6">
               <Image
@@ -118,7 +118,7 @@ const About = () => {
               />
               <div>
                 <h3 className="text-xl font-semibold mb-2">Akan</h3>
-                <p className="text-gray-300 leading-relaxed">
+                <p className="leading-relaxed">
                   A passionate and resilient individual that loves taking on new challenges. Software Engineer by profession, problem solver by nature. Building digital experiences that bring joy and connection to people&#39;s lives.
                 </p>
 

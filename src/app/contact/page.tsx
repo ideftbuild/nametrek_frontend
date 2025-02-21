@@ -56,7 +56,7 @@ const Contact = () => {
   return (
     <div className={"min-h-screen"}>
       <Header />
-        <main className="container mx-auto px-4 md:px-8 lg:px-16 py-12 text-white">
+        <main className="container mx-auto px-4 md:px-8 lg:px-16 py-12 text-gray-200">
           <div className="flex flex-col items-center text-center mb-16">
             <section className="bg-gradient-to-r from-pink-400 to-yellow-300 p-1 rounded-xl mb-8 inline-block">
               <h1 className="text-4xl md:text-5xl font-bold bg-gray-900 px-8 py-4 rounded-lg">
@@ -64,7 +64,7 @@ const Contact = () => {
               </h1>
             </section>
 
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+            <p className="text-xl text-gray-800 max-w-3xl mx-auto mb-8">
               Need help? We&#39;re here for you
             </p>
 
@@ -78,7 +78,7 @@ const Contact = () => {
               )}
 
               <div className="relative">
-                <label htmlFor="email" className="text-white text-sm mb-1 block">Email Address</label>
+                <label htmlFor="email" className="text-sm mb-1 block">Email Address</label>
                 <input
                   id="email"
                   type="email"
@@ -91,7 +91,7 @@ const Contact = () => {
               </div>
 
               <div className="relative">
-                <label htmlFor="subject" className="text-white text-sm mb-1 block">Subject</label>
+                <label htmlFor="subject" className="text-sm mb-1 block">Subject</label>
                 <select
                   id="subject"
                   value={formData.subject}
@@ -99,7 +99,7 @@ const Contact = () => {
                   required
                   className="w-full p-3 rounded-lg transition-all duration-300 focus:ring-2 focus:ring-pink-500 outline-none"
                 >
-                  <option value="" disabled> Select subject</option>
+                  <option value="" disabled>-- Select subject --</option>
                   <option value="Support">Support</option>
                   <option value="Sales">Sales</option>
                   <option value="Feedback">Feedback</option>
@@ -108,7 +108,7 @@ const Contact = () => {
               </div>
 
               <div className="relative">
-                <label htmlFor="message" className="text-white text-sm mb-1 block">Message</label>
+                <label htmlFor="message" className="text-sm mb-1 block">Message</label>
                 <textarea
                   id="message"
                   value={formData.message}
@@ -135,12 +135,12 @@ const Contact = () => {
 
             <section className="flex flex-col text-left items-center mt-8 gap-y-4">
               <div className="flex items-center gap-x-2">
-                <h3 className="text-white font-semibold">Support Email:</h3>
+                <h3 className="text-gray-800 font-semibold">Support Email:</h3>
                 <a href={`mailto:${supportEmail}`} className="text-yellow-400 hover:text-yellow-300 transition-colors">
                   {supportEmail}
                 </a>
               </div>
-              <p className="text-gray-300">We respond within 24-48 hours</p>
+              <p className="text-gray-800">We respond within 24-48 hours</p>
             </section>
           </div>
         </main>

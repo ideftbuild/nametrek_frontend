@@ -20,6 +20,11 @@ const orbitron = Orbitron({
   subsets: ['latin'], // Only load required subsets
 });
 
+const audiowide = Audiowide({
+  weight: '400',
+  subsets: ['latin'],
+});
+
 const Room = () => {
   const { roomId } = useParams();
   const [ isOwner, setIsOwner ] = useState(false);
@@ -88,6 +93,7 @@ const Room = () => {
   if (isLoading) {
     return (
       <div className="flex flex-col min-h-screen">
+        <Header />
         <div className="flex-grow flex items-center justify-center">
           <div className="text-white">Loading...</div>
         </div>
@@ -97,7 +103,7 @@ const Room = () => {
   }
 
   return (
-    <div className={"min-h-screen flex flex-col relative orbitron.className"}>
+    <div className={`min-h-screen flex flex-col relative ${audiowide.className}`}>
 
       {/* Optional Overlay for Better Visibility */}
       <div className="fixed top-0 left-0 w-full h-full bg-black/40 z-[-1]"></div>
