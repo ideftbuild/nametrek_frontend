@@ -26,7 +26,8 @@ export default {
       colors: {
         pinkCustom: "#FF0084",
         greyCustom: "#1E3C51",
-        orangeCustom: "#FFA600",
+        orangeCustom: "#00aeff",
+        brownCustom: "#241300",
         background: "var(--background)",
         foreground: "var(--foreground)",
       },

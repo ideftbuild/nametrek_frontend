@@ -15,7 +15,7 @@ const Home = () => {
       <Header/>
       <main className="container flex-grow mx-auto px-4 py-12">
         {/*<h2 className="text-3xl font-thin text-center text-white">Welcome aboard, Name Trekkers!</h2>*/}
-        <DropTextAnimation text="Welcome aboard, Name Trekkers!" className="text-xl font-semibold text-pink-400 mb-4 text-center overflow-hidden"/>
+        <DropTextAnimation text="Welcome aboard, Name Trekkers!" className="text-xl font-semibold text-brownCustom mb-4 text-center overflow-hidden"/>
 
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mt-12">

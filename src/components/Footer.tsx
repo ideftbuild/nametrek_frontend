@@ -6,7 +6,7 @@ import { SiGithub } from 'react-icons/si';
 
 export const Footer = () => {
   return (
-    <footer className="bg-gray-900 bg-opacity-90 backdrop-blur-sm text-white border-t border-gray-800">
+    <footer className="bg-gray-900 bg-opacity-80 backdrop-blur-sm text-gray-200 border-t border-gray-800">
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand Section */}
@@ -16,7 +16,7 @@ export const Footer = () => {
                 NameTrek
               </span>
             </h2>
-            <p className="text-gray-400">
+            <p className="">
               Challenge your mind, test your speed, connect with others.
             </p>
           </div>
@@ -27,17 +27,17 @@ export const Footer = () => {
             <nav>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/about" className="text-gray-400 hover:text-yellow-300 transition-colors">
+                  <Link href="/about" className="hover:text-yellow-300 transition-colors">
                     About
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="text-gray-400 hover:text-yellow-300 transition-colors">
+                  <Link href="/contact" className="hover:text-yellow-300 transition-colors">
                     Contact
                   </Link>
                 </li>
                 <li>
-                  <Link href="/privacy-policy" className="text-gray-400 hover:text-yellow-300 transition-colors">
+                  <Link href="/privacy-policy" className="hover:text-yellow-300 transition-colors">
                     Privacy Policy
                   </Link>
                 </li>

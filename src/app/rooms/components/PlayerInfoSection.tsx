@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { User, Info, Crown, Clock } from 'lucide-react';
 import type {Player, Room} from "@/store/types";
+import RulesModal from '../../../components/RulesModal';
+import Link from 'next/link';
 
 type PlayerInfoSectionProps = {
   allPlayers: Player[];
@@ -10,9 +12,13 @@ type PlayerInfoSectionProps = {
   setInfoIsClicked: (value: boolean) => void;
 }
 const PlayerInfoSection: React.FC<PlayerInfoSectionProps> = ({ allPlayers, currentPlayer, currentRoom, infoIsClicked, setInfoIsClicked }) => {
+
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="relative z-50">
       <div className="flex m-auto w-10/12 items-center justify-between p-3">
+
         {/* Player Badge */}
         <div className="flex items-center space-x-3">
           <div className="bg-gradient-to-r from-pink-400 to-yellow-300 p-0.5 rounded-xl">
@@ -33,6 +39,12 @@ const PlayerInfoSection: React.FC<PlayerInfoSectionProps> = ({ allPlayers, curre
               <Info className="w-5 h-5 text-pink-400 group-hover:text-yellow-400 transition-colors duration-300" />
             </div>
           </button>
+
+          <button className="text-white hover:text-yellow-300 transition-colors" onClick={() => setOpen(true)}>Rules</button>
+          <RulesModal open={open} setOpen={setOpen} />
+          <Link href="/" className="text-white hover:text-yellow-300 transition-colors">
+             Exit
+          </Link>
         </div>
 
         {/* Info Panel */}

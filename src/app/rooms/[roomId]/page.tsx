@@ -13,6 +13,17 @@ import LeaderboardChart from '../components/LeaderboardChart';
 import CopyCodeButton from '../components/CopyCodeButton';
 import CopyLinkButton from '../components/CopyLinkButton';
 import StartButton from '../components/StartButton';
+import { Audiowide, Orbitron } from 'next/font/google';
+
+const orbitron = Orbitron({
+  weight: '400', // Default weight
+  subsets: ['latin'], // Only load required subsets
+});
+
+const audiowide = Audiowide({
+  weight: '400',
+  subsets: ['latin'],
+});
 
 const Room = () => {
   const { roomId } = useParams();
@@ -92,10 +103,11 @@ const Room = () => {
   }
 
   return (
-    <div className={"min-h-screen flex flex-col"}>
-      <header>
-        <Header />
+    <div className={`min-h-screen flex flex-col relative ${audiowide.className}`}>
 
+      {/* Optional Overlay for Better Visibility */}
+      <div className="fixed top-0 left-0 w-full h-full bg-black/40 z-[-1]"></div>
+      <header>
         <div className="absolute w-full">
           {currentPlayer && currentRoom && (
             <PlayerInfoSection
@@ -141,8 +153,6 @@ const Room = () => {
           <LeaderboardChart allPlayers={allPlayers} leaderboardRef={leaderboardRef} hasScores={hasScores} />
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }
