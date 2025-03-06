@@ -11,7 +11,7 @@ const RulesModal: React.FC<RulesModalProps> = ({ open, setOpen }) => {
     <Dialog
       open={open}
       onClose={() => setOpen(false)}
-    className="relative z-50"
+    className="relative z-50 bg-sky-300"
     >
       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" aria-hidden="true" />
 

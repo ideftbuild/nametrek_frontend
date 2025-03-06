@@ -21,8 +21,7 @@ const CopyLinkButton: React.FC<{ link: string }> = ({ link }) => {
   return (
     <button
       onClick={copyToClipboard}
-      className="flex-shrink-0 flex items-center gap-2 px-4 sm:px-6 py-3 bg-gradient-to-r 
-      from-blue-500 to-indigo-600 text-white rounded-lg hover:from-blue-600 hover:to-indigo-700 
+      className="flex-shrink-0 flex items-center gap-2 p-4 sm:p-2  bg-blue-500 text-white rounded-lg hover:from-blue-600 hover:to-indigo-700 
       transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-blue-500/30 
       font-medium text-sm sm:text-base"
     >
@@ -33,7 +32,7 @@ const CopyLinkButton: React.FC<{ link: string }> = ({ link }) => {
         </span> : 
         <span className="flex items-center gap-2">
           <FaClipboard className="text-sm" />
-          Copy Link
+          Link
         </span>
       }
     </button>

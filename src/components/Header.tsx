@@ -3,11 +3,17 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import RulesModal from './RulesModal';
 import { Menu, X } from 'lucide-react';
-import { Audiowide } from 'next/font/google';
+import { Audiowide, Orbitron } from 'next/font/google';
 
 const audiowide = Audiowide({
   weight: '400',
   subsets: ['latin'],
+});
+
+
+const orbitron = Orbitron({
+  weight: '400', // Default weight
+  subsets: ['latin'], // Only load required subsets
 });
 
 const AnimatedLogo: React.FC<{ text: string }> = ({ text }) => {
@@ -36,7 +42,7 @@ export const Header = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="bg-blue-800 bg-opacity-40 rounded-b-3xl sticky w-full top-0 z-50">
+    <header className={`bg-blue-800 rounded-b-3xl sticky w-full top-0 z-50 ${orbitron.className}`}>
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
@@ -46,11 +52,11 @@ export const Header = () => {
           </Link>
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <button className="text-gray-200 hover:text-yellow-300 transition-colors" onClick={() => setOpen(true)}>
+            <button className="text-white hover:text-blue-300 transition-colors" onClick={() => setOpen(true)}>
               Rules
             </button>
             <RulesModal open={open} setOpen={setOpen} />
-            <Link href="/" className="text-gray-200 hover:text-yellow-300 transition-colors">
+            <Link href="/" className="text-white hover:text-blue-300 transition-colors">
               Play Now
             </Link>
           </nav>

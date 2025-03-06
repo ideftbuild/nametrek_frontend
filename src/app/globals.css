@@ -36,3 +36,12 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-thumb:hover {
   background: rgba(236, 72, 153, 0.6); /* Pink 500/60 */
 }
+
+.play-button-3d {
+  transition: all 0.2s ease;
+  color: transparent;
+  background: linear-gradient(135deg, #006400, #90EE90);
+  background-clip: text;
+  filter: drop-shadow(2px 4px 2px rgba(0, 50, 0, 0.3));
+  transform: perspective(40px) rotateX(5deg) scale(1.1);
+}

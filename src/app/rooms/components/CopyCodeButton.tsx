@@ -21,8 +21,8 @@ const CopyCodeButton: React.FC<{ code: string }> = ({ code }) => {
   return (
     <button
       onClick={copyToClipboard}
-      className="flex-shrink-0 flex items-center gap-2 px-4 sm:px-6 py-3 bg-gradient-to-r 
-      from-purple-500 to-pink-600 text-white rounded-lg hover:from-purple-600 hover:to-pink-700 
+      className="flex-shrink-0 flex items-center gap-2 p-4 sm:p-1 py-3 
+      bg-purple-500 text-white rounded-lg hover:from-purple-600 hover:to-pink-700 
       transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-purple-500/30 
       font-medium text-sm sm:text-base"
     >
@@ -33,7 +33,7 @@ const CopyCodeButton: React.FC<{ code: string }> = ({ code }) => {
         </span> : 
         <span className="flex items-center gap-2">
           <FaClipboard className="text-sm" />
-          Copy Code
+          Code
         </span>
       }
     </button>

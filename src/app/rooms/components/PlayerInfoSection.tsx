@@ -1,48 +1,77 @@
 import React, { useState } from 'react';
 import { User, Info, Crown, Clock } from 'lucide-react';
 import type {Player, Room} from "@/store/types";
+import useGameStore from '../../../store/gameStore';
 import RulesModal from '../../../components/RulesModal';
+import CopyCodeButton from '../components/CopyCodeButton';
+import CopyLinkButton from '../components/CopyLinkButton';
+import GameService from '../../../services/GameService';
+import StartButton from '../components/StartButton';
 import Link from 'next/link';
 
 type PlayerInfoSectionProps = {
+  isOwner: boolean;
+  inProgress: boolean;
   allPlayers: Player[];
   currentPlayer: Player;
   currentRoom: Room;
   infoIsClicked: boolean;
   setInfoIsClicked: (value: boolean) => void;
 }
-const PlayerInfoSection: React.FC<PlayerInfoSectionProps> = ({ allPlayers, currentPlayer, currentRoom, infoIsClicked, setInfoIsClicked }) => {
+const PlayerInfoSection: React.FC<PlayerInfoSectionProps> = ({ isOwner, inProgress, allPlayers, currentPlayer, currentRoom, infoIsClicked, setInfoIsClicked }) => {
 
   const [open, setOpen] = useState(false);
+  const roomCode = useGameStore((state) => state.roomCode);
+  const roomLink = useGameStore((state) => state.roomLink);
+
+  const handleStartGame = async (setStarting: (starting: boolean) => void) => {
+    try {
+      setStarting(true);
+      setTimeout(() => {
+        setStarting(false);
+      }, 1000);
+      await gameService.startGame(roomId as string);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      }
+    }
+  }
 
   return (
     <div className="relative z-50">
-      <div className="flex m-auto w-10/12 items-center justify-between p-3">
+      <div className="flex m-auto w-10/12 items-center justify-between p-3 text-gray-200">
 
         {/* Player Badge */}
-        <div className="flex items-center space-x-3">
-          <div className="bg-gradient-to-r from-pink-400 to-yellow-300 p-0.5 rounded-xl">
-            <div className="bg-gradient-to-r from-pink-50 to-yellow-50 px-4 py-2 rounded-lg flex items-center space-x-2">
-              <User className="w-5 h-5 text-pink-400" />
-              <span className="font-bold bg-gradient-to-r from-pink-500 to-yellow-400 bg-clip-text text-transparent">
-                {currentPlayer?.name}
-              </span>
-            </div>
+        <div className="flex items-center gap-4 flex-wrap text-pink-200 bg-sky-800 bg-opacity-20 rounded-lg shadow-lg p-2">
+          <div className="bg-white px-4 py-2 rounded-lg flex items-center space-x-2 shadow-lg text-pink-400">
+            <User className="w-5 h-5" />
+            <span className="font-medium">
+              {currentPlayer?.name}
+            </span>
           </div>
 
           {/* Info Button */}
           <button
             onClick={() => setInfoIsClicked(!infoIsClicked)}
-            className="group relative bg-gradient-to-r from-pink-400 to-yellow-300 p-0.5 rounded-full transition-all duration-300 hover:scale-110 hover:rotate-12"
+            className="group relative bg-sky-500 rounded-full transition-all duration-300 hover:scale-110 hover:rotate-12 shadow-lg"
           >
-            <div className="bg-gradient-to-r from-pink-50 to-yellow-50 p-2 rounded-full">
-              <Info className="w-5 h-5 text-pink-400 group-hover:text-yellow-400 transition-colors duration-300" />
+            <div className="p-2 rounded-full">
+              <Info className="w-5 h-5 group-hover:text-yellow-400 transition-colors duration-300" />
             </div>
           </button>
 
-          <button className="text-white hover:text-yellow-300 transition-colors" onClick={() => setOpen(true)}>Rules</button>
+          <button className="bg-sky-300 bg-opacity-20 hover:text-yellow-300 transition-colors p-1 rounded-lg shadow-lg" onClick={() => setOpen(true)}>Rules</button>
           <RulesModal open={open} setOpen={setOpen} />
-          <Link href="/" className="text-white hover:text-yellow-300 transition-colors">
+
+          {/* Game controls section */}
+          {isOwner && !inProgress && (
+            <div className="flex gap-4">
+              <CopyCodeButton code={roomCode as string} />
+              <CopyLinkButton link={roomLink as string} />
+            </div>
+          )}
+          <Link href="/" className="bg-red-300 text-gray-800 hover:text-yellow-300 transition-colors p-1 rounded-lg shadow-lg">
              Exit
           </Link>
         </div>
@@ -57,7 +86,7 @@ const PlayerInfoSection: React.FC<PlayerInfoSectionProps> = ({ allPlayers, curre
                     <Clock className="w-4 h-4" />
                     <span>Current Round</span>
                   </div>
-                  <div className="text-xl font-bold bg-gradient-to-r from-pink-500 to-yellow-400 bg-clip-text text-transparent">
+                  <div className="text-xl font-medium bg-gradient-to-r from-pink-500 to-yellow-400 bg-clip-text text-transparent">
                     {currentRoom?.round}
                   </div>
                 </div>
@@ -66,7 +95,7 @@ const PlayerInfoSection: React.FC<PlayerInfoSectionProps> = ({ allPlayers, curre
                     <Crown className="w-4 h-4" />
                     <span>Total Rounds</span>
                   </div>
-                  <div className="text-xl font-bold bg-gradient-to-r from-pink-500 to-yellow-400 bg-clip-text text-transparent">
+                  <div className="text-xl font-medium bg-gradient-to-r from-pink-500 to-yellow-400 bg-clip-text text-transparent">
                     {currentRoom?.rounds || 10}
                   </div>
                 </div>
@@ -82,7 +111,7 @@ const PlayerInfoSection: React.FC<PlayerInfoSectionProps> = ({ allPlayers, curre
                   <div className="flex justify-between items-center">
                     <div>
                       <div className="text-sm text-pink-400">Players</div>
-                      <div className="text-xl font-bold bg-gradient-to-r from-pink-500 to-yellow-400 bg-clip-text text-transparent">
+                      <div className="text-xl font-medium bg-gradient-to-r from-pink-500 to-yellow-400 bg-clip-text text-transparent">
                         {allPlayers?.length || 1} / {currentRoom?.maxPlayers}
                       </div>
                     </div>
@@ -97,7 +126,7 @@ const PlayerInfoSection: React.FC<PlayerInfoSectionProps> = ({ allPlayers, curre
                       {(allPlayers?.length || 1) > 3 && (
                         <div className="w-8 h-8 rounded-full bg-gradient-to-r from-pink-400 to-yellow-300 p-0.5">
                           <div className="w-full h-full rounded-full bg-pink-50 flex items-center justify-center">
-                            <span className="text-xs text-pink-400 font-bold">+{(allPlayers?.length || 1) - 3}</span>
+                            <span className="text-xs text-pink-400 font-medium">+{(allPlayers?.length || 1) - 3}</span>
                           </div>
                         </div>
                       )}

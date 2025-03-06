@@ -106,11 +106,15 @@ const Room = () => {
     <div className={`min-h-screen flex flex-col relative ${audiowide.className}`}>
 
       {/* Optional Overlay for Better Visibility */}
-      <div className="fixed top-0 left-0 w-full h-full bg-black/40 z-[-1]"></div>
+      <div className="fixed top-0 left-0 w-full h-full bg-black/10 z-[-1]"></div>
       <header>
         <div className="absolute w-full">
           {currentPlayer && currentRoom && (
             <PlayerInfoSection
+              isOwner={isOwner}
+              inProgress={inProgress}
+              setError={setError}
+              gameService={gameService}
               allPlayers={allPlayers}
               currentPlayer={currentPlayer}
               currentRoom={currentRoom}
@@ -125,7 +129,7 @@ const Room = () => {
       <main className="container flex flex-col items-center flex-grow mx-auto px-4 py-2 relative z-0">
 
         {/* Players circle with improved container */}
-        <div className="w-full max-w-4xl mb-4">
+        <div className="w-full max-w-4xl">
           <Board />
         </div>
 
@@ -136,15 +140,9 @@ const Room = () => {
           countdown={countdown}
           currentPlayer={currentPlayer}
         />
-
-        {/* Game controls section */}
         {isOwner && !inProgress && (
-          <div className="w-full max-w-4xl mb-4">
-            <div className="flex flex-wrap items-center gap-4 sm:gap-6 justify-center">
-              <StartButton handleStartGame={handleStartGame} />
-              <CopyCodeButton code={roomCode as string} />
-              <CopyLinkButton link={roomLink as string} />
-            </div>
+          <div className="relative top-1/2 left-1/2 transform -translate-x-1/2" aria-label="Play">
+            <StartButton handleStartGame={handleStartGame} />
           </div>
         )}
 
