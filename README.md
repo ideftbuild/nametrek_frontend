@@ -36,7 +36,7 @@ cd nametrek_frontend
 yarn install / npm install
 ```
 
-2. Contact project maintainer for environment configuration details
+  2. Contact the project maintainer at **a.akanSWE@gmail.com** for environment configuration details.
 
 3) Initialize development server
 ```
