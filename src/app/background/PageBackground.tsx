@@ -1,11 +1,18 @@
-import React from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 import { Globe, Clock, Car, TreePalm, Cat, House } from 'lucide-react';
+import { motion, AnimatePresence } from "framer-motion";
+import useUserLocation from '../hooks/useUserLocation';
 
-const AnimatedBackground = () => {
+const PageBackground = () => {
   return (
     <div className="fixed inset-0 w-full h-screen z-[-10] overflow-hidden">
+      <div className="fixed inset-0 overflow-hidden">
+        {/* Animated Sky Background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/80 to-blue-400/90"></div>
+
+      </div>
       {/* Base gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-sky-300 to-green-400 opacity-80" />
       
       {/* Large faded globe */}
       <div className="absolute inset-0 flex items-center justify-center opacity-20 pt-10">
@@ -74,4 +81,4 @@ const AnimatedBackground = () => {
   );
 };
 
-export default AnimatedBackground;
+export default PageBackground;

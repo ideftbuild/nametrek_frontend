@@ -42,7 +42,7 @@ export const Header = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className={`bg-blue-800 rounded-b-3xl sticky w-full top-0 z-50 ${orbitron.className}`}>
+    <header className={`bg-white bg-opacity-10 rounded-b-3xl sticky w-full top-0 z-50 ${orbitron.className}`}>
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">

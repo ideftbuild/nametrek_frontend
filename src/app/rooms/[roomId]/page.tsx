@@ -14,6 +14,7 @@ import CopyCodeButton from '../components/CopyCodeButton';
 import CopyLinkButton from '../components/CopyLinkButton';
 import StartButton from '../components/StartButton';
 import { Audiowide, Orbitron } from 'next/font/google';
+import GameBackground from '../../background/GameBackground';
 
 const orbitron = Orbitron({
   weight: '400', // Default weight
@@ -104,6 +105,8 @@ const Room = () => {
 
   return (
     <div className={`min-h-screen flex flex-col relative ${audiowide.className}`}>
+
+      <GameBackground />
 
       {/* Optional Overlay for Better Visibility */}
       <div className="fixed top-0 left-0 w-full h-full bg-black/10 z-[-1]"></div>

@@ -6,7 +6,7 @@ const PrivacyPolicy = () => {
   return (
     <div className={"min-h-screen"}>
       <Header />
-        <main className="container mx-auto px-4 md:px-8 lg:px-16 py-12 text-gray-200">
+        <main className="container mx-auto px-4 md:px-8 lg:px-16 py-12 text-white">
           <div className="flex flex-col items-center text-center mb-16">
           <div className="bg-gradient-to-r from-pink-400 to-yellow-300 p-1 rounded-xl mb-8 inline-block">
             <h1 className="text-4xl md:text-5xl font-bold bg-gray-900 px-8 py-4 rounded-lg">
@@ -14,11 +14,8 @@ const PrivacyPolicy = () => {
             </h1>
           </div>
           
-          <div className="bg-gray-800 bg-opacity-50 p-8 rounded-xl backdrop-blur-sm w-full max-w-4xl text-left space-y-6">
+          <div className="bg-sky-900 bg-opacity-50 p-8 rounded-xl backdrop-blur-sm w-full max-w-4xl text-left space-y-6">
             <section className="space-y-4">
-              <h2 className="text-2xl font-semibold bg-gradient-to-r from-pink-400 to-yellow-300 bg-clip-text text-transparent">
-                Welcome to NameTrek
-              </h2>
               <p>
                 Last updated: January 21, 2025
               </p>
@@ -28,7 +25,7 @@ const PrivacyPolicy = () => {
             </section>
 
             <section className="space-y-4">
-              <h3 className="text-xl font-semibold text-pink-400">
+              <h3 className="text-xl font-semibold text-sky-100">
                 Information We Collect
               </h3>
               <p>
@@ -41,7 +38,7 @@ const PrivacyPolicy = () => {
             </section>
 
             <section className="space-y-4">
-              <h3 className="text-xl font-semibold text-pink-400">
+              <h3 className="text-xl font-semibold text-white">
                 How We Use Your Information
               </h3>
               <p>
@@ -55,7 +52,7 @@ const PrivacyPolicy = () => {
             </section>
 
             <section className="space-y-4">
-              <h3 className="text-xl font-semibold text-pink-400">
+              <h3 className="text-xl font-semibold text-white">
                 Data Storage
               </h3>
               <p>
@@ -71,7 +68,7 @@ const PrivacyPolicy = () => {
             </section>
 
             <section className="space-y-4">
-              <h3 className="text-xl font-semibold text-pink-400">
+              <h3 className="text-xl font-semibold text-white">
                 Your Rights
               </h3>
               <p>
@@ -84,13 +81,12 @@ const PrivacyPolicy = () => {
               </ul>
             </section>
 
-            <section className="space-y-4">
-              <h3 className="text-xl font-semibold text-pink-400">
+            <section className="space-y-4 text-white">
+              <h3 className="text-xl font-semibold text-white">
                 Contact Us
               </h3>
               <p>
-                If you have any questions about our Privacy Policy, please contact us through our Contact page or email us directly.
-              </p>
+                If you have any questions about our Privacy Policy, please contact us through our Contact page.              </p>
             </section>
 
             <section className="mt-8 pt-6 border-t border-gray-700">

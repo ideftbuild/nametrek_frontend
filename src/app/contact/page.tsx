@@ -69,7 +69,7 @@ const Contact = () => {
             </p>
 
             <form onSubmit={handleSubmit}
-                  className="text-black bg-gray-800 bg-opacity-50 p-8 rounded-xl backdrop-blur-sm flex flex-col w-full text-left sm:max-w-xs md:max-w-2xl gap-y-6 mt-4 transition-all duration-300 hover:bg-opacity-60">
+                  className="text-black bg-sky-900 bg-opacity-50 p-8 rounded-xl backdrop-blur-sm flex flex-col w-full text-left sm:max-w-xs md:max-w-2xl gap-y-6 mt-4 transition-all duration-300 hover:bg-opacity-60">
 
               {message && (
                 <div className={`p-4 rounded-lg ${message.includes('Failed') ? 'bg-red-500' : 'bg-green-500'} text-white text-center transition-all duration-300`}>
@@ -132,16 +132,6 @@ const Contact = () => {
                 )}
               </button>
             </form>
-
-            <section className="flex flex-col text-left items-center mt-8 gap-y-4">
-              <div className="flex items-center gap-x-2">
-                <h3 className="text-gray-800 font-semibold">Support Email:</h3>
-                <a href={`mailto:${supportEmail}`} className="text-yellow-400 hover:text-yellow-300 transition-colors">
-                  {supportEmail}
-                </a>
-              </div>
-              <p className="text-gray-800">We respond within 24-48 hours</p>
-            </section>
           </div>
         </main>
       <Footer />

@@ -45,3 +45,12 @@ body::-webkit-scrollbar-thumb:hover {
   filter: drop-shadow(2px 4px 2px rgba(0, 50, 0, 0.3));
   transform: perspective(40px) rotateX(5deg) scale(1.1);
 }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.8; }
+}
+
+.animate-twinkle {
+  animation: twinkle 2s infinite alternate;
+}

@@ -42,7 +42,7 @@ const About = () => {
   return (
     <div className={"min-h-screen"}>
       <Header />
-      <main className="container mx-auto px-4 md:px-8 lg:px-16 py-12 text-sky-200">
+      <main className="container mx-auto px-4 md:px-8 lg:px-16 py-12 text-sky-100">
         {/* Hero Section */}
         <div className="text-center mb-16">
           <div className="bg-gradient-to-r from-pink-400 to-yellow-300 p-1 rounded-xl mb-8 inline-block">
@@ -74,7 +74,7 @@ const About = () => {
             <div key={index} className="bg-sky-900 bg-opacity-50 p-6 rounded-xl backdrop-blur-sm">
               <feature.icon className="w-12 h-12 text-yellow-400 mb-4" />
               <h3 className={`text-xl font-semibold mb-2 text-white ${audiowide.className}`}>{feature.title}</h3>
-              <p className="text-sky-200">{feature.desc}</p>
+              <p className="text-sky-100 text-pink-400">{feature.desc}</p>
             </div>
           ))}
         </div>
