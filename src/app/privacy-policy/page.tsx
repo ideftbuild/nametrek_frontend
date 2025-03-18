@@ -6,7 +6,7 @@ const PrivacyPolicy = () => {
   return (
     <div className={"min-h-screen"}>
       <Header />
-        <main className="container mx-auto px-4 md:px-8 lg:px-16 py-12 text-white">
+        <main className="container mx-auto px-4 md:px-8 lg:px-16 py-12 text-sky-100">
           <div className="flex flex-col items-center text-center mb-16">
           <div className="bg-gradient-to-r from-pink-400 to-yellow-300 p-1 rounded-xl mb-8 inline-block">
             <h1 className="text-4xl md:text-5xl font-bold bg-gray-900 px-8 py-4 rounded-lg">
@@ -25,7 +25,7 @@ const PrivacyPolicy = () => {
             </section>
 
             <section className="space-y-4">
-              <h3 className="text-xl font-semibold text-sky-100">
+              <h3 className="text-xl font-semibold text-white">
                 Information We Collect
               </h3>
               <p>

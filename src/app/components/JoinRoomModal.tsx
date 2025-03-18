@@ -8,7 +8,7 @@ import {X} from "lucide-react";
 
 const roomService = new RoomService();
 
-const JoinRoomModal = ( { open, setOpen }: RoomModalProps ) => {
+const JoinRoomModal = ( { open, setOpen, orbitron, audiowide }: RoomModalProps ) => {
 
   const [playerName, setPlayerName] = useState("");
   const [roomCode, setRoomCode] = useState("");
@@ -44,7 +44,7 @@ const JoinRoomModal = ( { open, setOpen }: RoomModalProps ) => {
           >
             <X size={20} />
           </button>
-        <h3 className="text-xl font-semibold text-pink-400 mb-4">Join a new room to start playing</h3>
+        <h3 className={`text-xl font-semibold text-green-300 mb-4 ${audiowide.className}`}>Join a new room to start playing</h3>
           <div className="flex flex-col gap-y-8">
             <input
               type="text"

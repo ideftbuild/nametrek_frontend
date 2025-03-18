@@ -8,7 +8,7 @@ import { X } from 'lucide-react';
 
 const roomService = new RoomService();
 
-const CreateRoomModal = ({ open, setOpen }: RoomModalProps ) => {
+const CreateRoomModal = ({ open, setOpen, orbitron, audiowide }: RoomModalProps ) => {
   const [playerName, setPlayerName] = useState("");
   const [rounds, setRounds] = useState(4);
   const [creating, setCreating] = useState(false);
@@ -60,7 +60,7 @@ const CreateRoomModal = ({ open, setOpen }: RoomModalProps ) => {
       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" aria-hidden="true"/>
 
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="w-full max-w-2xl transform rounded-xl bg-gray-900/95 shadow-xl p-6 transition-all">
+        <Dialog.Panel className="w-full max-w-2xl transform rounded-xl bg-gray-900 shadow-xl p-6 transition-all">
           {/* Close button */}
           <button
             onClick={() => setOpen(false)}
@@ -69,8 +69,8 @@ const CreateRoomModal = ({ open, setOpen }: RoomModalProps ) => {
           >
             <X size={20} />
           </button>
-          <h3 className="text-xl font-semibold text-pink-400 mb-4">Create a new room to start playing</h3>
-          <div className="flex flex-col gap-y-8">
+          <h3 className={`text-xl text-blue-300 mb-4 ${audiowide.className}`}>Create a new room to start playing</h3>
+          <div className={`flex flex-col gap-y-8 ${orbitron.className}`}>
             <input
               type="text"
               placeholder="Player Name"

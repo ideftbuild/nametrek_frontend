@@ -2,6 +2,8 @@
 export type RoomModalProps = {
   open: boolean;
   setOpen: (value: boolean) => void;
+  orbitron: any;
+  audiowide: any;
 }
 
 export type CreateRoomResponse = {

@@ -9,11 +9,13 @@ import { Audiowide, Orbitron } from 'next/font/google';
 const audiowide = Audiowide({
   weight: '400',
   subsets: ['latin'],
+  display: 'swap',
 });
 
 const orbitron = Orbitron({
   weight: '400',
   subsets: ['latin'],
+  display: 'swap',
 });
 
 const About = () => {
