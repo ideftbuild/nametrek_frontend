@@ -9,9 +9,7 @@ const Board = () => {
   const message = useGameStore((state) => state.message);
   const question = useGameStore((state) => state.question);
   const currentPlayer = useGameStore((state) => state.currentPlayer);
-  const headerHeight = 80;
-  const footerHeight = 60;
-
+  const setError = useGameStore((state) => state.setError);
 
   useEffect(() => {
     const handleResize = () => {
@@ -28,18 +26,13 @@ const Board = () => {
   }, []);
 
   const { positions, radius, circlePath } = useMemo(() => {
-    const padding = 40;
-
-    // Calculate available space considering the header and footer
-    const availableHeight = dimensions.height - headerHeight - footerHeight - padding * 2;
-    const availableWidth = dimensions.width - padding * 2;
 
     // Adjust radius calculation to account for the full circle
-    const minDimension = Math.min(availableWidth, availableHeight);
+    const minDimension = Math.min(dimensions.width, dimensions.height);
 
     const radius = Math.max(
       Math.min(
-        (minDimension / 2) * 0.8, // Reduced to 80% to ensure circle fits
+        (minDimension / 2) * 0.6, // Reduced to 80% to ensure circle fits
         200 // Set a maximum radius to prevent the circle from becoming too large
       ),
       0
@@ -57,18 +50,18 @@ const Board = () => {
       return `${acc}${i === 0 ? 'M' : 'L'} ${pos.x},${pos.y} `;
     }, '') + 'Z';
 
+
     return { positions, radius, circlePath };
   }, [allPlayers, dimensions]);
 
-  if (!allPlayers?.length || !currentPlayer) return null;
+  if (!allPlayers?.length || !currentPlayer) {
+    setError("Couldn't load the board. Please rejoin");
+    return null;
+  }
 
   return (
     <div
-      className="relative w-full flex justify-center items-center overflow-visible mt-20 bg-yellow"
-      style={{
-        height: `calc(100vh - ${headerHeight + footerHeight}px)`,
-        padding: '40px'
-      }}
+      className="relative w-full flex justify-center items-center overflow-visible h-[80vh]"
     >
       {/* Game Circle Background */}
       <div className="absolute inset-0 flex items-center justify-center">
@@ -154,7 +147,7 @@ const Board = () => {
       <div className="absolute inset-0 grid place-items-center pointer-events-none">
         <div className="bg-gradient-to-br from-purple-800 via-indigo-600 to-pink-600 backdrop-blur-md rounded-xl p-6 max-w-md mx-4 border border-pink-500 shadow-lg shadow-pink-700/50 animate-pulse">
           {message ? (
-            <h3 className="text-3xl font-extrabold bg-gradient-to-r from-purple-400 via-indigo-500 to-pink-500 bg-clip-text text-transparent mb-4 animate-glow">
+            <h3 className="sm:text-1xl md:text-3xl font-extrabold bg-gradient-to-r from-purple-400 via-indigo-500 to-pink-500 bg-clip-text text-transparent mb-2 animate-glow">
               {message}
             </h3>
           ) : (

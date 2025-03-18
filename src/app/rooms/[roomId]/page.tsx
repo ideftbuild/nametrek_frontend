@@ -3,10 +3,9 @@ import { useEffect, useState, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useGameClient  } from '../services/websocketService';
 import useGameStore from '../../../store/gameStore';
-import Header from '../../../components/Header';
 import PlayerInfoSection from "../components/PlayerInfoSection";
-import Footer from '../../../components/Footer';
 import Board from '../components/Board';
+import Loading from '../../../components/Loading';
 import GameService from '../../../services/GameService';
 import AnswerModal from '../components/AnswerModal';
 import LeaderboardChart from '../components/LeaderboardChart';
@@ -14,16 +13,17 @@ import CopyCodeButton from '../components/CopyCodeButton';
 import CopyLinkButton from '../components/CopyLinkButton';
 import StartButton from '../components/StartButton';
 import { Audiowide, Orbitron } from 'next/font/google';
-import GameBackground from '../../background/GameBackground';
 
 const orbitron = Orbitron({
   weight: '400', // Default weight
   subsets: ['latin'], // Only load required subsets
+  display: 'swap',
 });
 
 const audiowide = Audiowide({
   weight: '400',
   subsets: ['latin'],
+  display: 'swap', 
 });
 
 const Room = () => {
@@ -93,20 +93,12 @@ const Room = () => {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col min-h-screen">
-        <Header />
-        <div className="flex-grow flex items-center justify-center">
-          <div className="text-white">Loading...</div>
-        </div>
-        <Footer />
-      </div>
+      <Loading />
     );
   }
 
   return (
     <div className={`min-h-screen flex flex-col relative ${audiowide.className}`}>
-
-      <GameBackground />
 
       {/* Optional Overlay for Better Visibility */}
       <div className="fixed top-0 left-0 w-full h-full bg-black/10 z-[-1]"></div>
@@ -132,8 +124,13 @@ const Room = () => {
       <main className="container flex flex-col items-center flex-grow mx-auto px-4 py-2 relative z-0">
 
         {/* Players circle with improved container */}
-        <div className="w-full max-w-4xl">
+        <div className="flex flex-col items-center w-full max-w-4xl relative h-[100vh] pt-20">
           <Board />
+          {isOwner && !inProgress && (
+            <div className="relative mb-4" aria-label="Play">
+              <StartButton handleStartGame={handleStartGame} />
+            </div>
+          )}
         </div>
 
         <AnswerModal
@@ -143,12 +140,6 @@ const Room = () => {
           countdown={countdown}
           currentPlayer={currentPlayer}
         />
-        {isOwner && !inProgress && (
-          <div className="relative top-1/2 left-1/2 transform -translate-x-1/2" aria-label="Play">
-            <StartButton handleStartGame={handleStartGame} />
-          </div>
-        )}
-
         {/* Leaderboard section */}
         <div className="w-full max-w-4xl transition-all mb-12">
           <LeaderboardChart allPlayers={allPlayers} leaderboardRef={leaderboardRef} hasScores={hasScores} />

@@ -22,7 +22,7 @@ const StartButton: React.FC<StartButtonProps> = ({ handleStartGame }) => {
         </span> :
         <span className="flex items-center tranform">
           <FaPlay 
-            className="text-5xl text-green-800 drop-shadow-lg" 
+            className="text-5xl md:text-6xl text-green-800 drop-shadow-lg" 
             style={{
               background: 'linear-gradient(135deg, #006400, #90EE90)',
               backgroundClip: 'text',
