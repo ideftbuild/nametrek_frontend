@@ -4,7 +4,7 @@ export const skyPhases = {
   sunset: { colors: "from-orange-500 via-pink-500 to-purple-700", showClouds: false, showStars: false, name: "Sunset" },
   cloudy: { colors: "from-gray-300 to-gray-500", showClouds: true, showStars: false, name: "Cloudy" },
   night: { colors: "from-black to-gray-900", showClouds: false, showStars: true, name: "Night" },
-  default: { colors: "from-white to-blue-600", showClouds: false, showStars: false, name: "Default" }
+  default: { colors: "from-[#00BFFF] via-[#6A5ACD] to-[#4B0082]", showClouds: false, showStars: false, name: "Default" }
 };
 
 export const getPhase = () => {
@@ -27,12 +27,17 @@ export const setSkyPhaseByWeather = async (
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${WEATHER_API_KEY}`
       )
-      if (!response.ok) throw new Error("Failed to fetch weather data");
+      if (!response.ok) {
+        console.log("Failed to fetch weather data. Using default background");
+        setWeather(skyPhases.default);
+      }
       const data = await response.json();
 
       const sunsetTime = data.sys.sunset;
       const currentTime = Math.floor(Date.now() / 1000);  // Convert to Unix timestamp
+      console.log("Current time in seconds: " + currentTime);
       if (currentTime >= sunsetTime) {
+        console.log("It sunset");
         setWeather(skyPhases.sunset); // 🌅 Sunset Mode
       } else if (data.clouds.all > 50) {
         console.log(`☁️ Cloudy weather detected: ${skyPhases.cloudy}`);

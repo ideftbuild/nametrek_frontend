@@ -55,6 +55,10 @@ interface GameState {
   roomLink: string | null;
 
   roomCode: string | null;
+
+  isDynamicBackground: boolean | null;
+
+  setIsDynamicBackground: (value: boolean) => void;
 }
 
 const useGameStore = create<GameState>((set, get) => ({
@@ -76,6 +80,8 @@ const useGameStore = create<GameState>((set, get) => ({
   hasScores: false,
   roomCode: null,
   roomLink: null,
+  isDynamicBackground: localStorage.getItem("dynamicBgEnabled") == "true",
+  setIsDynamicBackground: (value) => set({ isDynamicBackground: value }),
 
   reset: (allPlayers) => {
     // navigate to the leaderboard page and render the data (gameEvent.value)

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 export default function useUserLocation() {
-  // Default location is New York, USA
+  console.log("Getting user location");
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
   
