@@ -1,5 +1,4 @@
 import { Contact } from './types';
-import { API_URL } from '@/config/constants';
 
 class EmailService {
 
