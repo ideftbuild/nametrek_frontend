@@ -8,7 +8,7 @@ import type {
   Room
 } from '../services/types';
   import { API_URL } from '@/config/constants';
-console.log("API_URL:", API_URL)
+
 
 export default class RoomService {
   private useFakeApi: boolean;
