@@ -7,6 +7,8 @@ import type {
   RoomPlayerInfo,
   Room
 } from '../services/types';
+  import { API_URL } from '@/config/constants';
+
 
 export default class RoomService {
   private useFakeApi: boolean;
@@ -22,7 +24,7 @@ export default class RoomService {
         setTimeout(() => resolve({...roomEvent}), 1000);
       });
     } else {
-      const response = await fetch(`http://localhost:8080/rooms/${roomId}/missed-update`, {
+      const response = await fetch(`${API_URL}/${roomId}/missed-update`, {
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
       })
@@ -40,7 +42,7 @@ export default class RoomService {
         setTimeout(() => resolve({...player}), 1000);
       });
     } else {
-      const response = await fetch(`http://localhost:8080/rooms/${roomId}/players/me`, {
+      const response = await fetch(`${API_URL}/rooms/${roomId}/players/me`, {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
       });
@@ -58,7 +60,7 @@ export default class RoomService {
         setTimeout(() => resolve({...roomPlayerInfo}), 1000);
       });
     } else {
-      const response = await fetch('http://localhost:8080/rooms', {
+      const response = await fetch(`${API_URL}/rooms`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -79,7 +81,7 @@ export default class RoomService {
         setTimeout(() => resolve({...roomPlayerInfo}), 1000);
       });
     } else {
-      const response = await fetch(`http://localhost:8080/rooms/${roomId}/join`, {
+      const response = await fetch(`${API_URL}/rooms/${roomId}/join`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -99,7 +101,7 @@ export default class RoomService {
         setTimeout(() => resolve({...roomPlayerInfo}), 1000);
       });
     } else {
-      const response = await fetch(`http://localhost:8080/rooms/join`, {
+      const response = await fetch(`${API_URL}/rooms/join`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
