@@ -1,8 +1,8 @@
-import AnimatedBackground from './AnimatedBackground.tsx'
+import PageBackground from './PageBackground';
 
 const BackgroundPage = () => {
   return (
-    <AnimatedBackground />
+    <PageBackground />
   )
 }
 

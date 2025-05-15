@@ -3,13 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { MessageCircle } from 'lucide-react';
 import { SiGithub } from 'react-icons/si';
-import { Audiowide, Orbitron } from 'next/font/google';
-
-const orbitron = Orbitron({
-  weight: '400', // Default weight
-  subsets: ['latin'], // Only load required subsets
-  display: 'swap',
-});
+import { Audiowide } from 'next/font/google';
 
 const audiowide = Audiowide({
   weight: '400',
@@ -24,8 +18,7 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand Section */}
           <div className="text-center md:text-left">
-            <div className="flex items-center space-x-2 bg-gradient-to-r from-pink-400 to-yellow-300 p-1 rounded-xl inline-block">
-
+            <div className="flex items-center space-x-2 bg-gradient-to-r from-pink-400 to-yellow-300 p-1 rounded-xl">
               <p className={`text-1xl md:text-2xl font-bold bg-gray-900 px-8 py-2 rounded-lg text-white ${audiowide.className}`}>Challenge your mind, test your speed, connect with others.</p>
             </div>
           </div>

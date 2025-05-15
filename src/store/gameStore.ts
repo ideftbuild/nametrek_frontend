@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { Client } from '@stomp/stompjs';
 import { Player, Room, Question, Answer } from './types';
 import React from "react";
+import GameService from "@/services/GameService";
 
 /**
  * Represents the state of a game at a given time.
@@ -58,7 +59,13 @@ interface GameState {
 
   isDynamicBackground: boolean | null;
 
+  gameService: GameService;
+
   setIsDynamicBackground: (value: boolean) => void;
+
+  bgError: string | null;
+
+  setBgError: (value: string | null) => void;
 }
 
 const useGameStore = create<GameState>((set, get) => ({
@@ -80,8 +87,14 @@ const useGameStore = create<GameState>((set, get) => ({
   hasScores: false,
   roomCode: null,
   roomLink: null,
-  isDynamicBackground: localStorage.getItem("dynamicBgEnabled") == "true",
-  setIsDynamicBackground: (value) => set({ isDynamicBackground: value }),
+  gameService: new GameService(),
+  bgError: null,
+  setBgError: (value ) => set({ bgError: value }),
+  isDynamicBackground: localStorage?.getItem('dynamicBgEnabled') === 'true',
+  setIsDynamicBackground: (value) => {
+    console.log("Inside store setting up dynamic value to : " + value);
+    set({ isDynamicBackground: value })
+  },
 
   reset: (allPlayers) => {
     // navigate to the leaderboard page and render the data (gameEvent.value)

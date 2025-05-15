@@ -1,5 +1,5 @@
 import { Dialog } from '@headlessui/react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import type { RoomModalProps } from './types';
 import RoomService from '../../services/RoomService';
@@ -8,22 +8,37 @@ import {X} from "lucide-react";
 
 const roomService = new RoomService();
 
-const JoinRoomModal = ( { open, setOpen, orbitron, audiowide }: RoomModalProps ) => {
+const JoinRoomModal = ( { open, setOpen, audiowide}: RoomModalProps ) => {
 
   const [playerName, setPlayerName] = useState("");
   const [roomCode, setRoomCode] = useState("");
   const [joining, setJoining] = useState(false);
+  const setError = useGameStore(state => state.setError);
+  const error = useGameStore(state => state.error);
   const router = useRouter();
 
+  useEffect(() => {
+    console.log("Error changed from join room modal");
+  }, [error]);
+  
   async function handleJoin() {
     try {
+      console.log("Handle join called");
       setJoining(true);
+
+      if (playerName === "" || roomCode == "") {
+        console.log("Reporting error");
+        setError("Please provide a player name and room code " + Math.random());
+        return;
+      }
+
       const roomPlayer = await roomService.joinRoomByCode({ playerName, roomCode });
       useGameStore.setState({ currentPlayer: roomPlayer.player });
 
       router.push(`/rooms/${roomPlayer.roomId}`);
     } catch (err) {
-      alert("Failed to create room: " + err);
+      console.log("An error occurred");
+      setError("Failed to join. Please ensure it an active room and try again");
     } finally {
       setJoining(false);
     }

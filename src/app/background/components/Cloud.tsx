@@ -1,6 +1,14 @@
-import { motion, AnimatePresence } from "framer-motion";
+import React from 'react';
+import { motion } from "framer-motion";
 
-const Cloud = ({ delay, xPosition, yPosition, scale }: any) => (
+type CloudProps = {
+  delay: number,
+  xPosition: number,
+  yPosition: number,
+  scale: number,
+}
+
+const Cloud: React.FC<CloudProps> = ({ delay, xPosition, yPosition, scale }) => (
   <motion.svg
     initial={{ x: "-100vw", opacity: 0.8 }}
     animate={{ x: "100vw" }}

@@ -10,6 +10,7 @@ const Invite = () => {
   const [playerName, setPlayerName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [joining, setJoining] = useState(false);
+  const setBgError = useGameStore(state => state.setBgError);
   const router = useRouter();
   const params = useParams();
   const roomService = new RoomService();
@@ -31,7 +32,9 @@ const Invite = () => {
       useGameStore.setState({ currentPlayer: roomPlayer.player });
       router.push(`/rooms/${roomPlayer.roomId}`);
     } catch (err) {
-      alert("Failed to join room: " + err);
+      if (err instanceof Error) {
+        setBgError("Failed to join. Please ensure it an active room and try again");
+      }
       router.push(`/`);
     } finally {
       setJoining(false);

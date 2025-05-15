@@ -14,8 +14,7 @@ type AnswerModalProps = {
 
 const AnswerModal: React.FC<AnswerModalProps> = ({ open, setOpen, roomId, countdown, currentPlayer }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const setIsPlayerTurn = useGameStore((state) => state.setIsPlayerTurn);
+  // const setIsPlayerTurn = useGameStore((state) => state.setIsPlayerTurn);
   const question = useGameStore((state) => state.question);
   const message = useGameStore((state) => state.message);
   const wsClient = useGameStore((state) => state.client);
@@ -31,13 +30,14 @@ const AnswerModal: React.FC<AnswerModalProps> = ({ open, setOpen, roomId, countd
       playerId: currentPlayer.id,
     };
 
-    const messageToSend = JSON.stringify(answer)
+    const messageToSend = JSON.stringify(answer);
     wsClient.publish({
       destination: `/app/game/${roomId}/answer`,
       body: messageToSend,
     });
     setCountdown(null);
-    setIsPlayerTurn(false);
+    setOpen(false);
+    // setIsPlayerTurn(false);
   }
 
   return (

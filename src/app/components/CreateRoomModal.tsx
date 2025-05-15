@@ -12,6 +12,7 @@ const CreateRoomModal = ({ open, setOpen, orbitron, audiowide }: RoomModalProps 
   const [playerName, setPlayerName] = useState("");
   const [rounds, setRounds] = useState(4);
   const [creating, setCreating] = useState(false);
+  const setBgError = useGameStore(state => state.setBgError);
   const router = useRouter();
 
   function generateInviteLink(roomId: string): string | undefined {
@@ -48,7 +49,9 @@ const CreateRoomModal = ({ open, setOpen, orbitron, audiowide }: RoomModalProps 
       useGameStore.setState({ currentPlayer: roomPlayer.player });
       router.push(`/rooms/${roomId}`);
     } catch (err) {
-      alert("Failed to create room: " + err);
+      if (err instanceof Error) {
+        setBgError("Failed to create room. Please try again");
+      }
     } finally {
       setCreating(false);
     }
@@ -70,7 +73,7 @@ const CreateRoomModal = ({ open, setOpen, orbitron, audiowide }: RoomModalProps 
             <X size={20} />
           </button>
           <h3 className={`text-xl text-blue-300 mb-4 ${audiowide.className}`}>Create a new room to start playing</h3>
-          <div className={`flex flex-col gap-y-8 ${orbitron.className}`}>
+          <div className={`flex flex-col gap-y-8 ${orbitron?.className}`}>
             <input
               type="text"
               placeholder="Player Name"

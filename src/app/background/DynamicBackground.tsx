@@ -4,50 +4,52 @@ import { motion, AnimatePresence } from "framer-motion";
 import Clouds from './components/Clouds';
 import Stars from './components/Stars'
 import useGameStore from '../../store/gameStore';
-import { setSkyPhaseByWeather } from './services/SkyPhases';
+import { setSkyPhaseByWeather, skyPhases } from './services/SkyPhases';
 
 const DynamicBackground = () => {
-  const [weather, setWeather] = useState(null);
+  const [weather, setWeather] = useState(skyPhases.default);
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const setIsDynamicBackground = useGameStore((state) => state.setIsDynamicBackground);
-  
+  const setBgError = useGameStore((state) => state.setBgError);
+  const bgError = useGameStore((state) => state.bgError);
+
   useEffect(() => {
-    if (error) {
-      // Use default background when an error occurs 
+    if (bgError) {
+      // Use default background when an error occurs
+      console.log('An error occured setting the dynamic back to false without changing default settings');
       setIsDynamicBackground(false);
     }
 
-  }, [error]);
+  }, [bgError, setIsDynamicBackground]);
 
   useEffect(() => {
     if (location) {
-      setSkyPhaseByWeather(location, setWeather);
-    } else {
-      // Use default background when user doesn't grant permission or location is null at the time of execution
-      setIsDynamicBackground(false);
+      setSkyPhaseByWeather(location, setWeather).then(null);
+      setIsDynamicBackground(true);
     }
-  }, [location]);
+  }, [location, setIsDynamicBackground]);
 
   useEffect(() => {
     if (!navigator.geolocation) {
-      setError("Geolocation is not supported by your browser.");
+      setBgError("Geolocation is not supported by your browser.");
       return;
     }
-    
+
     navigator.geolocation.getCurrentPosition(
       (position) => setLocation({ lat: position.coords.latitude, lon: position.coords.longitude }),
-      (err) => setError(err.message),
+      (err) => { 
+        setBgError("Couldn't get location, possibly due to network issues.");
+      },
     );
-  }, []);
+  }, [setBgError]);
 
   return (
-    <div className="fixed inset-0 w-full h-screen z-[-10] overflow-hidden">
+    <div className={"fixed inset-0 w-full h-screen z-[-10] overflow-hidden"}>
       {/* Animated Sky Background */}
       <AnimatePresence mode="wait">
         <motion.div
           key={weather?.name}
-          className={`absolute inset-0 bg-gradient-to-b ${weather?.colors} transition-all duration-[2000ms]`}
+          className={`absolute inset-0 bg-gradient-to-b ${weather.colors} transition-all duration-[2000ms]`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

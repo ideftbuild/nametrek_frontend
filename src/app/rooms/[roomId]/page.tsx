@@ -1,29 +1,20 @@
 'use client'
 import { useEffect, useState, useRef } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useGameClient  } from '../services/websocketService';
 import useGameStore from '../../../store/gameStore';
 import PlayerInfoSection from "../components/PlayerInfoSection";
 import Board from '../components/Board';
 import Loading from '../../../components/Loading';
-import GameService from '../../../services/GameService';
 import AnswerModal from '../components/AnswerModal';
 import LeaderboardChart from '../components/LeaderboardChart';
-import CopyCodeButton from '../components/CopyCodeButton';
-import CopyLinkButton from '../components/CopyLinkButton';
 import StartButton from '../components/StartButton';
-import { Audiowide, Orbitron } from 'next/font/google';
-
-const orbitron = Orbitron({
-  weight: '400', // Default weight
-  subsets: ['latin'], // Only load required subsets
-  display: 'swap',
-});
+import { Audiowide } from 'next/font/google';
 
 const audiowide = Audiowide({
   weight: '400',
   subsets: ['latin'],
-  display: 'swap', 
+  display: 'swap',
 });
 
 const Room = () => {
@@ -45,12 +36,11 @@ const Room = () => {
   const setIsPlayerTurn = useGameStore((state) => state.setIsPlayerTurn);
   const inProgress = useGameStore((state) => state.inProgress);
   const setLeaderboardRef = useGameStore((state) => state.setLeaderboardRef);
-  const roomCode = useGameStore((state) => state.roomCode);
-  const roomLink = useGameStore((state) => state.roomLink);
+  const gameService = useGameStore((state) => state.gameService);
+  // const roomCode = useGameStore((state) => state.roomCode);
+  // const roomLink = useGameStore((state) => state.roomLink);
   const hasScores = useGameStore((state) => state.hasScores);
 
-  const gameService = new GameService();
-  const router = useRouter();
   const handleStartGame = async (setStarting: (starting: boolean) => void) => {
     try {
       setStarting(true);
@@ -67,12 +57,12 @@ const Room = () => {
 
   useGameClient(roomId as string);
 
-  useEffect(() => {
-    if (error) {
-      alert(error);
-      setError(null);
-    }
-  }, [error, router, setError])
+  // useEffect(() => {
+  //   if (error) {
+  //     alert(error);
+  //     setError(null);
+  //   }
+  // }, [error, setError])
 
   useEffect(() => {
     if (currentPlayer && currentRoom) {
@@ -108,8 +98,6 @@ const Room = () => {
             <PlayerInfoSection
               isOwner={isOwner}
               inProgress={inProgress}
-              setError={setError}
-              gameService={gameService}
               allPlayers={allPlayers}
               currentPlayer={currentPlayer}
               currentRoom={currentRoom}

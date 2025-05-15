@@ -5,8 +5,8 @@ import useGameStore from '../../../store/gameStore';
 import RulesModal from '../../../components/RulesModal';
 import CopyCodeButton from '../components/CopyCodeButton';
 import CopyLinkButton from '../components/CopyLinkButton';
-import GameService from '../../../services/GameService';
-import StartButton from '../components/StartButton';
+// import GameService from '../../../services/GameService';
+// import StartButton from '../components/StartButton';
 import Link from 'next/link';
 
 type PlayerInfoSectionProps = {
@@ -19,24 +19,9 @@ type PlayerInfoSectionProps = {
   setInfoIsClicked: (value: boolean) => void;
 }
 const PlayerInfoSection: React.FC<PlayerInfoSectionProps> = ({ isOwner, inProgress, allPlayers, currentPlayer, currentRoom, infoIsClicked, setInfoIsClicked }) => {
-
   const [open, setOpen] = useState(false);
   const roomCode = useGameStore((state) => state.roomCode);
   const roomLink = useGameStore((state) => state.roomLink);
-
-  const handleStartGame = async (setStarting: (starting: boolean) => void) => {
-    try {
-      setStarting(true);
-      setTimeout(() => {
-        setStarting(false);
-      }, 1000);
-      await gameService.startGame(roomId as string);
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      }
-    }
-  }
 
   return (
     <div className="relative z-50">

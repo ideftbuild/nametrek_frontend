@@ -4,15 +4,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import Image from 'next/image';
-import { Audiowide, Orbitron } from 'next/font/google';
+import { Audiowide } from 'next/font/google';
 
 const audiowide = Audiowide({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-});
-
-const orbitron = Orbitron({
   weight: '400',
   subsets: ['latin'],
   display: 'swap',

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import React from "react";
-import PageBackground from '../app/background/PageBackground.tsx'
+import PageBackground from '@/app/background/PageBackground'
+import Notification from '../components/Notification';
 
 export const metadata: Metadata = {
   title: "Nametrek",
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={"relative antialiased min-h-screen"}>
+      <Notification />
       <PageBackground />
         {children}
       </body>
