@@ -1,33 +1,28 @@
 import { Dialog } from '@headlessui/react';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { RoomModalProps } from './types';
 import RoomService from '../../services/RoomService';
 import useGameStore from '../../store/gameStore';
+import { audiowide } from '../fonts';
 import {X} from "lucide-react";
 
 const roomService = new RoomService();
 
-const JoinRoomModal = ( { open, setOpen, audiowide}: RoomModalProps ) => {
+const JoinRoomModal = ( { open, setOpen }: RoomModalProps ) => {
 
   const [playerName, setPlayerName] = useState("");
   const [roomCode, setRoomCode] = useState("");
   const [joining, setJoining] = useState(false);
   const setError = useGameStore(state => state.setError);
-  const error = useGameStore(state => state.error);
   const router = useRouter();
 
-  useEffect(() => {
-    console.log("Error changed from join room modal");
-  }, [error]);
-  
   async function handleJoin() {
     try {
       console.log("Handle join called");
       setJoining(true);
 
       if (playerName === "" || roomCode == "") {
-        console.log("Reporting error");
         setError("Please provide a player name and room code " + Math.random());
         return;
       }
@@ -37,7 +32,7 @@ const JoinRoomModal = ( { open, setOpen, audiowide}: RoomModalProps ) => {
 
       router.push(`/rooms/${roomPlayer.roomId}`);
     } catch (err) {
-      console.log("An error occurred");
+      console.log("An error occurred:", err);
       setError("Failed to join. Please ensure it an active room and try again");
     } finally {
       setJoining(false);
@@ -50,7 +45,7 @@ const JoinRoomModal = ( { open, setOpen, audiowide}: RoomModalProps ) => {
       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" aria-hidden="true"/>
 
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="w-full max-w-2xl transform rounded-xl bg-gray-900/95 shadow-xl p-6 transition-all">
+        <div className="w-full max-w-2xl transform rounded-xl bg-gray-900/95 shadow-xl p-6 transition-all">
           {/* Close button */}
           <button
             onClick={() => setOpen(false)}
@@ -87,7 +82,7 @@ const JoinRoomModal = ( { open, setOpen, audiowide}: RoomModalProps ) => {
               Join
             </button>
           }
-        </Dialog.Panel>
+        </div>
       </div>
     </Dialog>
   );

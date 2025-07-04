@@ -4,37 +4,22 @@ import RoomService from '../../services/RoomService';
 import type { RoomModalProps } from './types';
 import { useRouter } from 'next/navigation';
 import useGameStore from '../../store/gameStore';
+import { audiowide, orbitron } from '../fonts';
 import { X } from 'lucide-react';
 
 const roomService = new RoomService();
 
-const CreateRoomModal = ({ open, setOpen, orbitron, audiowide }: RoomModalProps ) => {
+const CreateRoomModal = ({ open, setOpen }: RoomModalProps ) => {
   const [playerName, setPlayerName] = useState("");
   const [rounds, setRounds] = useState(4);
   const [creating, setCreating] = useState(false);
-  const setBgError = useGameStore(state => state.setBgError);
+  const setError = useGameStore(state => state.setError);
   const router = useRouter();
 
-  function generateInviteLink(roomId: string): string | undefined {
-    if (typeof window !== "undefined") {
+  function generateInviteLink(roomId: string): string {
       const hostname = window.location.origin;
       return `${hostname}/invite/${roomId}`;
-    }
-    return undefined;
   }
-
-  // Fix the type definition to accept string | undefined | null
-  const isDefined = (value: string | undefined | null): value is string => {
-    return value !== undefined && value !== null;
-  };
-
-  const setLocalStorageItem = (key: string, value: string | undefined | null) => {
-    if (isDefined(value)) {
-      localStorage.setItem(key, value);
-    } else {
-      localStorage.removeItem(key);
-    }
-  };
 
   async function handleCreate() {
     try {
@@ -43,15 +28,17 @@ const CreateRoomModal = ({ open, setOpen, orbitron, audiowide }: RoomModalProps 
       const roomId = roomPlayer.roomId;
       const roomCode = roomPlayer.roomCode;
 
-      setLocalStorageItem('roomCode', roomCode);
-      setLocalStorageItem('roomLink', generateInviteLink(roomId));
+
+      localStorage.setItem('roomCode', roomCode);
+      if (typeof window !== "undefined") {
+        localStorage.setItem('roomLink', generateInviteLink(roomId));
+      }
 
       useGameStore.setState({ currentPlayer: roomPlayer.player });
       router.push(`/rooms/${roomId}`);
     } catch (err) {
-      if (err instanceof Error) {
-        setBgError("Failed to create room. Please try again");
-      }
+      console.log("Error: " + err);
+      setError("Failed to create room. Please try again");
     } finally {
       setCreating(false);
     }
@@ -63,7 +50,7 @@ const CreateRoomModal = ({ open, setOpen, orbitron, audiowide }: RoomModalProps 
       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" aria-hidden="true"/>
 
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="w-full max-w-2xl transform rounded-xl bg-gray-900 shadow-xl p-6 transition-all">
+        <div className="w-full max-w-2xl transform rounded-xl bg-gray-900 shadow-xl p-6 transition-all">
           {/* Close button */}
           <button
             onClick={() => setOpen(false)}
@@ -99,7 +86,7 @@ const CreateRoomModal = ({ open, setOpen, orbitron, audiowide }: RoomModalProps 
               Create
             </button>
           }
-        </Dialog.Panel>
+        </div>
       </div>
     </Dialog>
 );

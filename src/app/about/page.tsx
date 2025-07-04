@@ -4,13 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import Image from 'next/image';
-import { Audiowide } from 'next/font/google';
-
-const audiowide = Audiowide({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-});
+import { audiowide } from '../fonts';
 
 const About = () => {
 
@@ -79,7 +73,7 @@ const About = () => {
         <div className="space-y-16 max-w-4xl mx-auto text-sky-100">
           <section>
             <h2 className="text-3xl font-bold mb-6 flex items-center">
-              <span className="text-teal-900 bg-clip-text">Introduction</span>
+              <span className="text-teal-900">Introduction</span>
             </h2>
             <div className="bg-sky-900 bg-opacity-50 rounded-xl p-6 backdrop-blur-sm">
               <p className="leading-relaxed">
@@ -90,7 +84,7 @@ const About = () => {
 
           <section>
             <h2 className="text-3xl font-bold mb-6 flex items-center">
-              <span className="text-teal-900 bg-clip-text">Our Story</span>
+              <span className="text-teal-900">Our Story</span>
             </h2>
             <div className="bg-sky-900 bg-opacity-50 rounded-xl p-6 backdrop-blur-sm">
               <p className="leading-relaxed">
@@ -101,7 +95,7 @@ const About = () => {
 
           <section>
             <h2 className="text-3xl font-bold mb-6 flex items-center">
-              <span className="text-teal-900 bg-clip-text">Mission & Vision</span>
+              <span className="text-teal-900">Mission & Vision</span>
             </h2>
             <div className="bg-sky-900 bg-opacity-50 rounded-xl p-6 backdrop-blur-sm">
               <p className="leading-relaxed">
@@ -113,7 +107,7 @@ const About = () => {
           {/* Team Section */}
           <section className="mb-16">
             <h2 className="text-3xl font-bold mb-6 flex items-center">
-              <span className="text-teal-900 bg-clip-text">Meet the Creator</span>
+              <span className="text-teal-900">Meet the Creator</span>
             </h2>
             <div className="bg-sky-900 bg-opacity-50 rounded-xl p-6 backdrop-blur-sm flex items-center gap-6">
               <Image

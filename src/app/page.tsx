@@ -5,19 +5,7 @@ import Footer from '../components/Footer';
 import CreateRoomModal from './components/CreateRoomModal';
 import JoinRoomModal from './components/JoinRoomModal';
 import DropTextAnimation from "../components/DropWordAnimation";
-import { Audiowide, Orbitron } from 'next/font/google';
-
-const orbitron = Orbitron({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap', // Ensures the font loads ASAP
-});
-
-const audiowide = Audiowide({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-});
+import { audiowide, orbitron } from './fonts';
 
 
 const Home = () => {
@@ -33,16 +21,16 @@ const Home = () => {
 
 
         <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mt-12 ${orbitron.className}`}>
-          <section onClick={() => setIsCreateClicked(true)} className="flex flex-col bg-indigo-600  justify-center rounded-lg shadow-md hover:bg-indigo-700 p-8 hover:shadow-lg transition-shadow cursor-pointer">
+          <section onClick={() => setIsCreateClicked(true)} className="flex flex-col bg-indigo-600 justify-center rounded-lg shadow-md hover:bg-indigo-700 p-8 hover:shadow-lg transition-shadow cursor-pointer">
             <h3 className={`text-xl font-semibold mb-4 text-white ${audiowide.className}`}>Create Room</h3>
             <p className="text-blue-300">Start a new room and invite others to join.</p>
-            <CreateRoomModal open={isCreateClicked} setOpen={setIsCreateClicked} orbitron={orbitron} audiowide={audiowide} />
+            <CreateRoomModal open={isCreateClicked} setOpen={setIsCreateClicked} />
           </section>
 
           <section onClick={() => setIsJoinClicked(true)} className="flex flex-col justify-center bg-[#17A2B8] rounded-lg shadow-md p-8 hover:bg-[#137180] hover:shadow-lg transition-shadow cursor-pointer">
             <h3 className={`text-xl font-semibold mb-4 text-white ${audiowide.className}`}>Join Room</h3>
             <p className="text-teal-300">Enter a room code to join an existing session.</p>
-            <JoinRoomModal open={isJoinClicked} setOpen={setIsJoinClicked} audiowide={audiowide} />
+            <JoinRoomModal open={isJoinClicked} setOpen={setIsJoinClicked} />
           </section>
         </div>
       </main>

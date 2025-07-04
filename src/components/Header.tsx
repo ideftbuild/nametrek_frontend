@@ -4,15 +4,10 @@ import Link from 'next/link';
 import RulesModal from './RulesModal';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
-import { Orbitron } from 'next/font/google';
+import { orbitron } from '../app/fonts';
 import useGameStore from '../store/gameStore';
 import ToggleBtn from './ToggleBtn';
 
-const orbitron = Orbitron({
-  weight: '400', // Default weight
-  subsets: ['latin'], // Only load required subsets
-  display: 'swap',
-});
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,10 +18,7 @@ const Header = () => {
   const bgPreferenceVariable = "dynamicBgEnabled";
   const isHomePage = usePathname() === '/';
 
-  console.log("Default isDynamicBackground is set to: " + isDynamicBackground);
-
   const toggleBackground = () => {
-    console.log("toggleBackground called");
     const newState = !isDynamicBackground;
     // Don't enable dynamic background when an error occured
     if (bgError != null && newState) {

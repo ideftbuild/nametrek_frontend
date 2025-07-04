@@ -3,13 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { MessageCircle } from 'lucide-react';
 import { SiGithub } from 'react-icons/si';
-import { Audiowide } from 'next/font/google';
-
-const audiowide = Audiowide({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-});
+import { audiowide } from '../app/fonts';
 
 export const Footer = () => {
   return (
