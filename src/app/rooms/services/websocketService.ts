@@ -2,6 +2,7 @@ import { Client } from '@stomp/stompjs';
 import { useEffect, useRef } from 'react';
 import useGameStore from '../../../store/gameStore';
 import RoomService from '../../../services/RoomService';
+import { WEBSOCKET_URL } from '../../../constants';
 
 const roomService = new RoomService();
 
@@ -39,7 +40,7 @@ export const useGameClient = (roomId: string) => {
     isConnecting.current = true;
 
     const wsClient = new Client({
-      brokerURL: 'ws://localhost:8080/ws',
+      brokerURL: WEBSOCKET_URL,
       connectHeaders: {
         playerId: currentPlayer.id.toString(),
         roomId,
