@@ -35,7 +35,7 @@ export type Room = {
 
 export type RoomPlayerInfo = {
   roomId: string;
-  roomCode: string | null;
+  roomCode: string;
   player: Player;
 }
 

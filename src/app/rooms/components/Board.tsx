@@ -1,11 +1,12 @@
 import React, { useMemo, useState, useEffect} from 'react';
-import useGameStore from '../../../store/gameStore';
+import useGameStore from '@/store/gameStore';
 import Player from './Player';
+import throttle from '../utils/throttle'
 
-const Board = () => {
+const Board = React.memo(function Board() {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0});
   const allPlayers = useGameStore((state) => state.allPlayers);
-  const countdown = useGameStore((state) => state.countdown);
+  // const countdown = useGameStore((state) => state.countdown);
   const message = useGameStore((state) => state.message);
   const question = useGameStore((state) => state.question);
   const currentPlayer = useGameStore((state) => state.currentPlayer);
@@ -13,16 +14,14 @@ const Board = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight
-      });
+      setDimensions({ width: window.innerWidth, height: window.innerHeight });
     };
 
-    handleResize();
+    const throttledResize = throttle(handleResize, 100);
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    throttledResize();
+    window.addEventListener('resize', throttledResize);
+    return () => window.removeEventListener('resize', throttledResize);
   }, []);
 
   const { positions, radius, circlePath } = useMemo(() => {
@@ -54,10 +53,12 @@ const Board = () => {
     return { positions, radius, circlePath };
   }, [allPlayers, dimensions]);
 
-  if (!allPlayers?.length || !currentPlayer) {
-    setError("Couldn't load the board. Please rejoin");
-    return null;
-  }
+  useEffect(() => {
+    if (!allPlayers?.length || !currentPlayer) {
+      setError("Loading board... Please wait or try joining again shortly");
+    } 
+
+  }, [allPlayers, currentPlayer, setError]);
 
   return (
     <div
@@ -160,21 +161,20 @@ const Board = () => {
       {allPlayers
         .filter((player) => !player.lost)
         .map((player, index) => {
-        const isCurrentPlayer = player.id === currentPlayer.id;
+        const isCurrentPlayer = player.id === currentPlayer?.id;
         const isCountdown = question?.playerId === player.id;
         return (
           <Player
             key={player.id}
             player={player}
             position={positions[index]}
-            isCurrentPlayer={isCurrentPlayer}
             isCountdown={isCountdown}
-            countdown={countdown}
+            isCurrentPlayer={isCurrentPlayer}
           />
         );
       })}
     </div>
   );
-};
+});
 
 export default Board;

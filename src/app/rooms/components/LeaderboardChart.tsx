@@ -1,27 +1,33 @@
-import React from 'react'; // Removed unused useEffect
-import type { Player } from '@/store/types';
+import React, { useRef, useEffect } from 'react'; // Removed unused useEffect
+import useGameStore from '@/store/gameStore';
 import {ChartData, ChartOptions, ScriptableContext} from 'chart.js';
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   BarElement,
-  Title,
   Tooltip,
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { Trophy, Crown, Medal } from 'lucide-react';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-type LeaderboardChartProps = {
-  allPlayers: Player[];
-  leaderboardRef: React.Ref<HTMLHeadingElement> | undefined;
-  hasScores: boolean;
-}
+const LeaderboardChart = React.memo(function LeaderboardChart() {
+  // const leaderboardRef = useGameStore((state) => state.leaderboardRef);
+  const setLeaderboardRef = useGameStore((state) => state.setLeaderboardRef);
+  const hasScores = useGameStore((state) => state.hasScores);
+  const allPlayers = useGameStore((state) => state.allPlayers);
+  const leaderboardRef = useRef(null);
 
-const LeaderboardChart: React.FC<LeaderboardChartProps> = ({ allPlayers, leaderboardRef, hasScores }) => {
+  useEffect(() => {
+    // Store the ref in Zustand when the component mounts
+    if (leaderboardRef != null) {
+      setLeaderboardRef(leaderboardRef);
+    }
+  }, [setLeaderboardRef, leaderboardRef]);
+
   const getGradient = (context: ScriptableContext<'bar'>, isLost: boolean | null): CanvasGradient | string => {
     const chart = context.chart;
     const { ctx, chartArea } = chart;
@@ -168,6 +174,6 @@ const LeaderboardChart: React.FC<LeaderboardChartProps> = ({ allPlayers, leaderb
       </div>
     </div>
   );
-};
+});
 
 export default LeaderboardChart;

@@ -1,6 +1,8 @@
 import { User } from 'lucide-react';
 import React, { useState } from 'react';
 import type { Player } from "@/store/types";
+import useGameStore from "@/store/gameStore";
+
 
 // Memoized Player component to prevent unnecessary re-renders
 type PlayerProps = {
@@ -8,10 +10,11 @@ type PlayerProps = {
   position: {x: number, y: number};
   isCurrentPlayer: boolean;
   isCountdown: boolean;
-  countdown: number | null;
 }
-const Player: React.FC<PlayerProps> = ({ player, position, isCurrentPlayer, isCountdown, countdown }) => {
+
+const Player: React.FC<PlayerProps> = React.memo(function Player({ player, position, isCurrentPlayer, isCountdown }) {
   const [hovered, setHovered] = useState(false);
+  const countdown = useGameStore((state) => state.countdown);
 
   return (
     <div
@@ -50,6 +53,6 @@ const Player: React.FC<PlayerProps> = ({ player, position, isCurrentPlayer, isCo
       </div>
     </div>
   );
-}
+});
 
 export default Player;

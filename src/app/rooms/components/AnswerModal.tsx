@@ -1,24 +1,24 @@
 import { Dialog } from '@headlessui/react';
 import React, { useRef } from 'react';
 import useGameStore from '@/store/gameStore';
-import { Answer, Player } from '@/store/types';
+import { Answer } from '@/store/types';
 import {X} from "lucide-react";
 
 type AnswerModalProps = {
-  open: boolean;
-  setOpen: (open: boolean) => void;
   roomId: string;
-  countdown: number | null;
-  currentPlayer: Player | null;
 }
 
-const AnswerModal: React.FC<AnswerModalProps> = ({ open, setOpen, roomId, countdown, currentPlayer }) => {
+const AnswerModal: React.FC<AnswerModalProps> = React.memo(function AnswerModal({ roomId }) {
+
   const inputRef = useRef<HTMLInputElement>(null);
-  // const setIsPlayerTurn = useGameStore((state) => state.setIsPlayerTurn);
-  const question = useGameStore((state) => state.question);
   const message = useGameStore((state) => state.message);
   const wsClient = useGameStore((state) => state.client);
+  const question = useGameStore((state) => state.question);
+  const countdown = useGameStore((state) => state.countdown); 
   const setCountdown = useGameStore((state) => state.setCountdown);
+  const isPlayerTurn = useGameStore((state) => state.isPlayerTurn); 
+  const currentPlayer = useGameStore((state) => state.currentPlayer); 
+  const setIsPlayerTurn = useGameStore((state) => state.setIsPlayerTurn); 
 
   const handleSendAnswer = () => {
     const input = inputRef.current?.value;
@@ -36,22 +36,21 @@ const AnswerModal: React.FC<AnswerModalProps> = ({ open, setOpen, roomId, countd
       body: messageToSend,
     });
     setCountdown(null);
-    setOpen(false);
-    // setIsPlayerTurn(false);
+    setIsPlayerTurn(false);
   }
 
   return (
     <>
-      {open && (
-        <Dialog open={true} static onClose={() => {}} className="relative z-50">
+      {isPlayerTurn && (
+        <Dialog open={isPlayerTurn} static onClose={() => {}} className="relative z-50">
 
           <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" aria-hidden="true"/>
 
           <div className="fixed inset-0 flex items-center justify-center p-4">
-            <Dialog.Panel className="w-full max-w-2xl transform rounded-xl bg-gray-900/95 shadow-xl p-6 transition-all">
+            <div className="w-full max-w-2xl transform rounded-xl bg-gray-900/95 shadow-xl p-6 transition-all">
               {/* Close button */}
               <button
-                onClick={() => setOpen(false)}
+                onClick={() => setIsPlayerTurn(false)}
                 className="absolute right-4 top-4 p-2 text-gray-400 hover:text-pink-400 transition-colors"
                 aria-label="Close rules"
               >
@@ -81,13 +80,13 @@ const AnswerModal: React.FC<AnswerModalProps> = ({ open, setOpen, roomId, countd
                       className={"mt-6 px-6 py-2 bg-green-600 text-white w-full rounded-md hover:bg-green-700 transition-colors"}>
                 send
               </button>
-            </Dialog.Panel>
+            </div>
           </div>
         </Dialog>
         )}
     </>
   );
-}
+});
 
 export default AnswerModal;
 

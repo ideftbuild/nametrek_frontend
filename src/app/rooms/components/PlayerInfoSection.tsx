@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
 import { User, Info, Crown, Clock } from 'lucide-react';
-import type {Player, Room} from "@/store/types";
 import useGameStore from '../../../store/gameStore';
 import RulesModal from '../../../components/RulesModal';
 import CopyCodeButton from '../components/CopyCodeButton';
 import CopyLinkButton from '../components/CopyLinkButton';
-// import GameService from '../../../services/GameService';
-// import StartButton from '../components/StartButton';
 import Link from 'next/link';
 
 type PlayerInfoSectionProps = {
   isOwner: boolean;
-  inProgress: boolean;
-  allPlayers: Player[];
-  currentPlayer: Player;
-  currentRoom: Room;
-  infoIsClicked: boolean;
-  setInfoIsClicked: (value: boolean) => void;
 }
-const PlayerInfoSection: React.FC<PlayerInfoSectionProps> = ({ isOwner, inProgress, allPlayers, currentPlayer, currentRoom, infoIsClicked, setInfoIsClicked }) => {
+
+const PlayerInfoSection: React.FC<PlayerInfoSectionProps> = React.memo(function PlayerInfoSection({ isOwner }) {
   const [open, setOpen] = useState(false);
   const roomCode = useGameStore((state) => state.roomCode);
   const roomLink = useGameStore((state) => state.roomLink);
+  const inProgress = useGameStore((state) => state.inProgress);
+  const allPlayers = useGameStore((state) => state.allPlayers);
+  const currentPlayer = useGameStore((state) => state.currentPlayer);
+  const currentRoom = useGameStore((state) => state.currentRoom);
+  const [ infoIsClicked, setInfoIsClicked ] = useState(false);
 
   return (
     <div className="relative z-50">
@@ -126,6 +123,6 @@ const PlayerInfoSection: React.FC<PlayerInfoSectionProps> = ({ isOwner, inProgre
       </div>
     </div>
   );
-};
+});
 
 export default PlayerInfoSection;
