@@ -1,8 +1,9 @@
+import { BASE_URL } from '../constants';
 
 class GameService {
 
   async startGame(roomId: string) {
-    const response = await fetch(`http://localhost:8080/games/${roomId}`, {
+    const response = await fetch(`${BASE_URL}/games/${roomId}`, {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
     });

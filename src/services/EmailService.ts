@@ -1,10 +1,10 @@
 import { Contact } from './types';
+import { BASE_URL } from '../constants';
 
 class EmailService {
 
   async sendContact(contact: Contact) {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-    const response = await fetch(`${baseUrl}/contact`, {
+    const response = await fetch(`${BASE_URL}/contact`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(contact)
