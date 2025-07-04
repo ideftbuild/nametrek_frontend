@@ -38,6 +38,7 @@ const DynamicBackground = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => setLocation({ lat: position.coords.latitude, lon: position.coords.longitude }),
       (err) => { 
+        console.error("Geolocation error:", err); // Log the actual error for debugging
         setBgError("Couldn't get location, possibly due to network issues.");
       },
     );

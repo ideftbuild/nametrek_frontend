@@ -7,15 +7,23 @@ export default function useUserLocation() {
   const [error, setError] = useState<string | null>(null);
   
   useEffect(() => {
-    if (!navigator.geolocation) {
+    if (typeof window === 'undefined' || !navigator.geolocation) {
       setError("Geolocation is not supported by your browser.");
       return;
     }
     
-    navigator.geolocation.getCurrentPosition(
-      (position) => setLocation({ lat: position.coords.latitude, lon: position.coords.longitude }),
-      (err) => setError(err.message)
-    );
+    const run = () => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => setLocation({ lat: position.coords.latitude, lon: position.coords.longitude }),
+        (err) => setError(err.message)
+      );
+    }
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(run);
+    } else {
+      setTimeout(run, 500);  // fallback
+    }
   }, []);
   
   return { location, error };

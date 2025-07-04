@@ -1,5 +1,5 @@
 'use client';
-import { Globe, Clock, Car, TreePalm, Cat, House, BookOpen, CircleDashed } from 'lucide-react';
+import { Globe, Clock, Car, Cat, House, BookOpen } from 'lucide-react';
 import useGameStore from '@/store/gameStore';
 import DynamicBackground from './DynamicBackground';
 
@@ -16,9 +16,6 @@ const PageBackground = () => {
           :
           <div className="absolute inset-0 bg-gradient-to-b from-[#00BFFF] via-[#6A5ACD] to-[#4B0082]"></div>
         }
-
-        {/* Animated particle overlay */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiIG9wYWNpdHk9IjAuMyIvPjwvc3ZnPg==')] opacity-30"></div>
       </div>
 
       {/* Glow effect overlay */}
@@ -32,32 +29,26 @@ const PageBackground = () => {
       {/* Decorative elements container with more game-like objects */}
       <div className="absolute inset-0">
         {/* Top row icons with glow effects */}
-        <div className="absolute top-8 left-8 animate-bounce">
-          <House className="w-12 h-12 text-[#FF69B4] opacity-70 drop-shadow-[0_0_8px_rgba(255,105,180,0.7)]" />
+        <div className="absolute top-8 left-8">
+          <House className="w-12 h-12 text-[#FF69B4] opacity-70" />
         </div>
-        <div className="absolute top-16 right-16 animate-pulse">
-          <Car className="w-10 h-10 text-[#FFFF00] opacity-70 drop-shadow-[0_0_8px_rgba(255,255,0,0.7)]" />
+        <div className="absolute top-16 right-16">
+          <Car className="w-10 h-10 text-[#FFFF00] opacity-70" />
         </div>
 
         {/* Middle row icons with enhanced visibility */}
-        <div className="absolute top-1/3 left-1/4 animate-pulse">
-          <TreePalm className="w-14 h-14 text-[#32CD32] opacity-70 drop-shadow-[0_0_8px_rgba(50,205,50,0.7)]" />
-        </div>
-        <div className="absolute top-1/2 right-1/3 animate-bounce">
-          <Cat className="w-12 h-12 text-[#FFA500] opacity-70 drop-shadow-[0_0_8px_rgba(255,165,0,0.7)]" />
+        <div className="absolute top-[31%] left-1/4 animate-bounce">
+          <Cat className="w-12 h-12 text-[#FFA500] opacity-70" />
         </div>
 
         {/* Timer element with enhanced glow */}
-        <div className="absolute bottom-12 right-12 animate-pulse">
-          <Clock className="w-16 h-16 text-[#00FFFF] opacity-70 drop-shadow-[0_0_8px_rgba(0,255,255,0.7)]" />
+        <div className="absolute bottom-12 right-12">
+          <Clock className="w-16 h-16 text-[#00FFFF] opacity-70" />
         </div>
 
         {/* Using your existing icons but in different positions/colors */}
-        <div className="absolute bottom-24 left-20 animate-bounce">
-          <CircleDashed className="w-10 h-10 text-[#FF6347] opacity-70 drop-shadow-[0_0_8px_rgba(255,99,71,0.7)]" />
-        </div>
-        <div className="absolute top-24 left-1/3 animate-pulse">
-          <BookOpen className="w-12 h-12 text-[#9370DB] opacity-70 drop-shadow-[0_0_8px_rgba(147,112,219,0.7)]" />
+        <div className="absolute bottom-24 left-20">
+          <BookOpen className="w-12 h-12 text-[#FF6347] opacity-70" />
         </div>
 
         {/* Enhanced motion lines with glow */}

@@ -1,10 +1,6 @@
-import {NextFont} from "next/dist/compiled/@next/font";
-
 export type RoomModalProps = {
   open: boolean;
   setOpen: (value: boolean) => void;
-  audiowide: NextFont;
-  orbitron?: NextFont;
 }
 
 export type CreateRoomResponse = {
