@@ -7,7 +7,7 @@ import GameService from "@/services/GameService";
 /**
  * Represents the state of a game at a given time.
  */
-interface GameState {
+export interface GameState {
   // The current player using this client. If no player is logged in, this will be null.
   currentPlayer: Player | null;
   // The list of all players in the game. Can be null if the game state is not initialized.
@@ -90,7 +90,7 @@ const useGameStore = create<GameState>((set, get) => ({
   gameService: new GameService(),
   bgError: null,
   setBgError: (value ) => set({ bgError: value }),
-  isDynamicBackground: localStorage?.getItem('dynamicBgEnabled') === 'true',
+  isDynamicBackground: false,
   setIsDynamicBackground: (value) => {
     console.log("Inside store setting up dynamic value to : " + value);
     set({ isDynamicBackground: value })
