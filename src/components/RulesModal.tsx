@@ -16,7 +16,7 @@ const RulesModal: React.FC<RulesModalProps> = ({ open, setOpen }) => {
       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" aria-hidden="true" />
 
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="w-full max-w-2xl transform rounded-xl bg-gray-900/95 shadow-xl transition-all">
+        <div className="w-full max-w-2xl transform rounded-xl bg-gray-900/95 shadow-xl transition-all">
           <div
             className="relative p-6"
           >
@@ -114,7 +114,7 @@ const RulesModal: React.FC<RulesModalProps> = ({ open, setOpen }) => {
               </p>
             </div>
           </div>
-        </Dialog.Panel>
+        </div>
       </div>
     </Dialog>
   );
