@@ -46,6 +46,10 @@ yarn install / npm install
 ## 🚀 Getting Started
 After installation, the development server will be running locally. Ensure all environment variables are correctly configured.
 
+
+## External API
+- Open Weather API
+
 ## 🤝 Contributing
 
 We welcome contributions! Here's how you can help:
