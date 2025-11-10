@@ -58,10 +58,7 @@ const CreateRoomModal = ({ open, setOpen }: RoomModalProps) => {
         <div className="w-full max-w-2xl transform rounded-xl bg-gray-900 shadow-xl p-6 transition-all">
           {/* Close button */}
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setOpen(false);
-            }}
+            onClick={() => setOpen(false)}
             className="absolute right-4 top-4 p-2 text-gray-400 hover:text-pink-400 transition-colors"
             aria-label="Close rules"
           >
