@@ -16,14 +16,6 @@ const JoinRoomModal = ({ open, setOpen }: RoomModalProps) => {
   const setError = useGameStore((state) => state.setError);
   const router = useRouter();
 
-  const setClose = () => {
-    setOpen(false);
-  };
-
-  // useEffect(() => {
-  //   console.log('open has changed join room modal:', open);
-  // }, [setOpen]);
-
   async function handleJoin() {
     try {
       console.log("Handle join called");
